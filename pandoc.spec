@@ -15,8 +15,8 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.6.0.1
-Release:        1%{?dist}
-Summary:        Markup converter for markdown
+Release:        2%{?dist}
+Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
 License:        GPLv2+
@@ -56,10 +56,14 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,
 %attr(755,root,root) %{_bindir}/%{name}
 %attr(755,root,root) %{_bindir}/markdown2pdf
 %{_datadir}/%{name}-%{version}
-%{_mandir}/man1/*
+%attr(644,root,root) %{_mandir}/man1/*
 
 
 %changelog
+* Mon Jan 31 2011 Jens Petersen <petersen@redhat.com> - 1.6.0.1-2
+- fix manpage perms (narasim)
+- improve the summary (#652582)
+
 * Fri Jan 14 2011 Jens Petersen <petersen@redhat.com> - 1.6.0.1-1
 - 1.6.0.1
 - add description
