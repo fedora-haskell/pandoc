@@ -10,12 +10,9 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 %global ghc_pkg_deps ghc-HTTP-devel, ghc-mtl-devel, ghc-network-devel, ghc-parsec-devel, ghc-texmath-devel, ghc-utf8-string-devel, ghc-xhtml-devel, ghc-xml-devel, ghc-zip-archive-devel
 
-# debuginfo is not useful for ghc
-%global debug_package %{nil}
-
 Name:           %{pkg_name}
 Version:        1.6.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -47,7 +44,7 @@ BuildRequires:  hscolour
 rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
 
 
-%{?ghc_binlib_package}
+%ghc_binlib_package
 
 
 %files
@@ -60,6 +57,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,
 
 
 %changelog
+* Tue Feb 15 2011 Jens Petersen <petersen@redhat.com> - 1.6.0.1-4
+- rebuild for latest zip-archive and haskell-platform-2011.1 updates
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
