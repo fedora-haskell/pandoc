@@ -12,7 +12,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.6.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -20,7 +20,7 @@ License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
 # fedora ghc archs:
-ExclusiveArch:  %{ix86} x86_64 ppc alpha
+ExclusiveArch:  %{ix86} x86_64 ppc alpha sparcv9
 BuildRequires:  ghc, ghc-doc, ghc-prof
 BuildRequires:  ghc-rpm-macros >= 0.7.3
 BuildRequires:  hscolour
@@ -57,6 +57,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,
 
 
 %changelog
+* Thu Mar 10 2011 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.6.0.1-5
+- Enable build on sparcv9
+
 * Tue Feb 15 2011 Jens Petersen <petersen@redhat.com> - 1.6.0.1-4
 - rebuild for latest zip-archive and haskell-platform-2011.1 updates
 
