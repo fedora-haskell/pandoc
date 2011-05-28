@@ -8,11 +8,9 @@ and a command-line tool that uses this library. It can read markdown and\
 reStructuredText, HTML, LaTeX, ConTeXt, Docbook, OpenDocument, ODT, RTF,\
 MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
-%global ghc_pkg_deps ghc-HTTP-devel, ghc-mtl-devel, ghc-network-devel, ghc-parsec-devel, ghc-texmath-devel, ghc-utf8-string-devel, ghc-xhtml-devel, ghc-xml-devel, ghc-zip-archive-devel
-
 Name:           %{pkg_name}
-Version:        1.6.0.1
-Release:        5%{?dist}
+Version:        1.8.1.1
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -20,11 +18,11 @@ License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
 # fedora ghc archs:
-ExclusiveArch:  %{ix86} x86_64 ppc alpha sparcv9
-BuildRequires:  ghc, ghc-doc, ghc-prof
-BuildRequires:  ghc-rpm-macros >= 0.7.3
+ExclusiveArch:  %{ix86} x86_64 ppc alpha sparcv9 ppc64
+BuildRequires:  ghc-prof
+BuildRequires:  ghc-rpm-macros
 BuildRequires:  hscolour
-%{?ghc_pkg_deps:BuildRequires:  %{ghc_pkg_deps}, %(echo %{ghc_pkg_deps} | sed -e "s/\(ghc-[^, ]\+\)-devel/\1-doc,\1-prof/g")}
+BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, 
 
 %description
 %{common_description}
@@ -41,7 +39,7 @@ BuildRequires:  hscolour
 %install
 %ghc_lib_install
 
-rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
+rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
 
 
 %ghc_binlib_package
@@ -57,6 +55,11 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,
 
 
 %changelog
+* Sat May 28 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.1-1
+- update to 1.8.1.1
+- update to cabal2spec-0.23: add ppc64
+- new depends on citeproc-hs, dlist, json, pandoc-types, tagsoup
+
 * Thu Mar 10 2011 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.6.0.1-5
 - Enable build on sparcv9
 
