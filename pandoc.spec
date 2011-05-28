@@ -52,6 +52,7 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 %attr(755,root,root) %{_bindir}/markdown2pdf
 %{_datadir}/%{name}-%{version}
 %attr(644,root,root) %{_mandir}/man1/*
+%attr(644,root,root) %{_mandir}/man5/*
 
 
 %changelog
@@ -59,6 +60,7 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 - update to 1.8.1.1
 - update to cabal2spec-0.23: add ppc64
 - new depends on citeproc-hs, dlist, json, pandoc-types, tagsoup
+- new pandoc_markdown.5 manpage
 
 * Thu Mar 10 2011 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.6.0.1-5
 - Enable build on sparcv9
