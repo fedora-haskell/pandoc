@@ -10,16 +10,15 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
 License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
-# fedora ghc archs:
-ExclusiveArch:  %{ix86} x86_64 ppc alpha sparcv9 ppc64
-BuildRequires:  ghc-prof
+ExclusiveArch:  %{ghc_arches}
+BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  hscolour
 BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, 
@@ -33,6 +32,7 @@ BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-pr
 
 
 %build
+#%%define cabal_configure_options -f highlighting
 %ghc_lib_build
 
 
@@ -56,6 +56,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Wed Jun 22 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.1-2
+- BR ghc-Cabal-devel instead of ghc-prof and use ghc_arches (cabal2spec-0.23.2)
+
 * Sat May 28 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.1-1
 - update to 1.8.1.1
 - update to cabal2spec-0.23: add ppc64
