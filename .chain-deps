@@ -1,3 +1,1 @@
-# rebuild.sh config file: see <http://git.fedorahosted.org/git/haskell-sig.git>
-
-CHAIN_PKGS="ghc-digest ghc-xml : ghc-texmath ghc-zip-archive :"
+ghc-digest ghc-dlist ghc-json ghc-pandoc-types ghc-tagsoup ghc-xml : ghc-citeproc-hs ghc-texmath ghc-zip-archive :
