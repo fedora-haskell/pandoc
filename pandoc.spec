@@ -21,7 +21,7 @@ ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  hscolour
-BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, 
+BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, ghc-extensible-exceptions-prof, ghc-random-prof
 
 %description
 %{common_description}
