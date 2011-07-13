@@ -10,7 +10,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -21,7 +21,7 @@ ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  hscolour
-BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, ghc-extensible-exceptions-prof, ghc-random-prof
+BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-highlighting-kate-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, ghc-extensible-exceptions-prof, ghc-random-prof
 
 %description
 %{common_description}
@@ -32,7 +32,7 @@ BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-HTTP-prof, ghc-json-pr
 
 
 %build
-#%%define cabal_configure_options -f highlighting
+%define cabal_configure_options -f highlighting
 %ghc_lib_build
 
 
@@ -56,6 +56,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Wed Jul 13 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.1-3
+- build with code highlighting support using highlighting-kate
+
 * Wed Jun 22 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.1-2
 - BR ghc-Cabal-devel instead of ghc-prof and use ghc_arches (cabal2spec-0.23.2)
 
