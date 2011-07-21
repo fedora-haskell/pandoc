@@ -9,8 +9,8 @@ reStructuredText, HTML, LaTeX, ConTeXt, Docbook, OpenDocument, ODT, RTF,\
 MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
-Version:        1.8.1.1
-Release:        3%{?dist}
+Version:        1.8.1.2
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -56,6 +56,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Thu Jul 21 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.2-1
+- update to 1.8.1.2
+
 * Wed Jul 13 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.1-3
 - build with code highlighting support using highlighting-kate
 
