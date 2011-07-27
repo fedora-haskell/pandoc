@@ -10,7 +10,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -56,6 +56,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Wed Jul 27 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.2-3
+- rebuild for xml-1.3.9
+
 * Fri Jul 22 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.2-2
 - rebuild for highlighting-kate-0.2.10
 
