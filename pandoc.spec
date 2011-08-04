@@ -21,7 +21,7 @@ ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  hscolour
-BuildRequires:  ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-highlighting-kate-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, ghc-extensible-exceptions-prof, ghc-random-prof
+BuildRequires:  ghc-base64-bytestring-prof, ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-highlighting-kate-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, ghc-extensible-exceptions-prof, ghc-random-prof
 
 %description
 %{common_description}
@@ -58,6 +58,7 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 %changelog
 * Thu Aug  4 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-1
 - update to 1.8.2.1
+- depends on base64-bytestring
 
 * Wed Jul 27 2011 Jens Petersen <petersen@redhat.com> - 1.8.1.2-3
 - rebuild for xml-1.3.9
