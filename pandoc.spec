@@ -10,7 +10,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -56,6 +56,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Mon Oct  3 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-2
+- rebuild against newer dependencies
+
 * Thu Aug  4 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-1
 - update to 1.8.2.1
 - depends on base64-bytestring
