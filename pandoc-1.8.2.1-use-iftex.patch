@@ -1,0 +1,26 @@
+--- pandoc-1.8.2.1/templates/default.latex.orig	2011-08-02 03:02:52.000000000 +0900
++++ pandoc-1.8.2.1/templates/default.latex	2011-11-17 17:57:27.933740728 +0900
+@@ -1,16 +1,17 @@
+ \documentclass$if(fontsize)$[$fontsize$]$endif${article}
+ \usepackage{amssymb,amsmath}
+-\usepackage{ifxetex,ifluatex}
++%\usepackage{ifxetex,ifluatex}
++\usepackage{ifxetex}
+ \ifxetex
+   \usepackage{fontspec,xltxtra,xunicode}
+   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+ \else
+-  \ifluatex
+-    \usepackage{fontspec}
+-    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+-  \else
++%  \ifluatex
++%    \usepackage{fontspec}
++%    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
++%  \else
+     \usepackage[utf8]{inputenc}
+-  \fi
++%  \fi
+ \fi
+ $if(natbib)$
+ \usepackage{natbib}

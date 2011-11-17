@@ -10,25 +10,58 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.2.1
-Release:        2%{?dist}.2
+Release:        3%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
 License:        GPLv2+
+# BEGIN cabal2spec
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
 ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  hscolour
-BuildRequires:  ghc-base64-bytestring-prof, ghc-citeproc-hs-prof, ghc-dlist-prof, ghc-highlighting-kate-prof, ghc-HTTP-prof, ghc-json-prof, ghc-mtl-prof, ghc-network-prof, ghc-pandoc-types-prof, ghc-parsec-prof, ghc-tagsoup-prof, ghc-texmath-prof, ghc-utf8-string-prof, ghc-xhtml-prof, ghc-xml-prof, ghc-zip-archive-prof, ghc-extensible-exceptions-prof, ghc-random-prof
+# END cabal2spec
+BuildRequires:  ghc-base64-bytestring-prof
+BuildRequires:  ghc-citeproc-hs-prof
+BuildRequires:  ghc-dlist-prof
+BuildRequires:  ghc-highlighting-kate-prof
+BuildRequires:  ghc-HTTP-prof
+BuildRequires:  ghc-json-prof
+BuildRequires:  ghc-mtl-prof
+BuildRequires:  ghc-network-prof
+BuildRequires:  ghc-pandoc-types-prof
+BuildRequires:  ghc-parsec-prof
+BuildRequires:  ghc-tagsoup-prof
+BuildRequires:  ghc-texmath-prof
+BuildRequires:  ghc-utf8-string-prof
+BuildRequires:  ghc-xhtml-prof
+BuildRequires:  ghc-xml-prof
+BuildRequires:  ghc-zip-archive-prof
+BuildRequires:  ghc-extensible-exceptions-prof
+BuildRequires:  ghc-random-prof
+Patch1:         pandoc-1.8.2.1-use-iftex.patch
 
 %description
 %{common_description}
 
 
+%package markdown2pdf
+Summary:        Convert markdown to PDF via LaTeX
+Group:          Applications/Publishing
+Requires:       pandoc = %{version}-%{release}
+Requires:       texlive-xetex
+
+%description markdown2pdf
+%{common_description}
+
+This package provides pandoc's markdown2pdf convertion tool.
+
+
 %prep
 %setup -q
+%patch1 -p1 -b .orig
 
 
 %build
@@ -46,16 +79,23 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %files
-%defattr(-,root,root,-)
 %doc BUGS COPYING COPYRIGHT README
 %attr(755,root,root) %{_bindir}/%{name}
-%attr(755,root,root) %{_bindir}/markdown2pdf
 %{_datadir}/%{name}-%{version}
-%attr(644,root,root) %{_mandir}/man1/*
+%attr(644,root,root) %{_mandir}/man1/pandoc.1*
 %attr(644,root,root) %{_mandir}/man5/*
 
 
+%files markdown2pdf
+%attr(755,root,root) %{_bindir}/markdown2pdf
+%attr(644,root,root) %{_mandir}/man1/markdown2pdf.1*
+
+
 %changelog
+* Thu Nov 17 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-3
+- disable ifluatex in default.latex for texlive-2007 (Luis Villa, #752621)
+- subpackage markdown2pdf and make it require texlive-xetex
+
 * Wed Oct 26 2011 Marcela Mašláňová <mmaslano@redhat.com> - 1.8.2.1-2.2
 - rebuild with new gmp without compat lib
 
