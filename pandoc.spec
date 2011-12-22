@@ -10,7 +10,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -42,6 +42,7 @@ BuildRequires:  ghc-zip-archive-prof
 BuildRequires:  ghc-extensible-exceptions-prof
 BuildRequires:  ghc-random-prof
 Patch1:         pandoc-1.8.2.1-use-iftex.patch
+Patch2:         pandoc-1.8.2.1-texlive2007-xelatex-outputdir.patch
 
 %description
 %{common_description}
@@ -53,8 +54,8 @@ The pandoc-markdown2pdf subpackage provides markdown2pdf.
 Summary:        Convert markdown to PDF via LaTeX
 Group:          Applications/Publishing
 Requires:       pandoc = %{version}-%{release}
-# for pdflatex and xelatex
-Requires:       texlive-latex, texlive-xetex
+# for pdflatex
+Requires:       texlive-latex
 
 %description markdown2pdf
 %{common_description}
@@ -65,6 +66,7 @@ This package provides pandoc's markdown2pdf convertion tool.
 %prep
 %setup -q
 %patch1 -p1 -b .orig
+%patch2 -p1 -b .orig
 
 
 %build
@@ -95,6 +97,10 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Thu Dec 22 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-5
+- only require pdflatex not xelatex by default
+- workaround texlive-2007 xelatex outputting to current dir
+
 * Wed Nov 30 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-4
 - add missing requires for pdflatex
 
