@@ -54,8 +54,8 @@ The pandoc-markdown2pdf subpackage provides markdown2pdf.
 Summary:        Convert markdown to PDF via LaTeX
 Group:          Applications/Publishing
 Requires:       pandoc = %{version}-%{release}
-# for pdflatex
-Requires:       texlive-latex
+# for pdflatex and xelatex
+Requires:       texlive-latex, texlive-xetex
 
 %description markdown2pdf
 %{common_description}
@@ -98,7 +98,6 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 %changelog
 * Thu Dec 22 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-5
-- only require pdflatex not xelatex by default
 - workaround texlive-2007 xelatex outputting to current dir
 
 * Wed Nov 30 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-4
