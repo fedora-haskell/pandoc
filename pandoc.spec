@@ -1,3 +1,7 @@
+# cabal2spec-0.25.2
+# https://fedoraproject.org/wiki/Packaging:Haskell
+# https://fedoraproject.org/wiki/PackagingDrafts/Haskell
+
 %global pkg_name pandoc
 
 %global common_summary Haskell %{pkg_name} library
@@ -10,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -20,8 +24,7 @@ URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
 ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-rpm-macros
-BuildRequires:  hscolour
+BuildRequires:  ghc-rpm-macros %{!?without_hscolour:hscolour}
 # END cabal2spec
 BuildRequires:  ghc-base64-bytestring-prof
 BuildRequires:  ghc-citeproc-hs-prof
@@ -41,6 +44,7 @@ BuildRequires:  ghc-xml-prof
 BuildRequires:  ghc-zip-archive-prof
 BuildRequires:  ghc-extensible-exceptions-prof
 BuildRequires:  ghc-random-prof
+# these two patches should be removed when texlive gets updated
 Patch1:         pandoc-1.8.2.1-use-iftex.patch
 Patch2:         pandoc-1.8.2.1-texlive2007-xelatex-outputdir.patch
 
@@ -79,8 +83,17 @@ This package provides pandoc's markdown2pdf convertion tool.
 
 rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
 
+%ghc_package
 
-%ghc_binlib_package
+%ghc_description
+
+
+%ghc_devel_package
+
+%ghc_devel_description
+
+
+%ghc_devel_post_postun
 
 
 %files
@@ -96,7 +109,13 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 %attr(644,root,root) %{_mandir}/man1/markdown2pdf.1*
 
 
+%ghc_files
+
+
 %changelog
+* Fri Jan  6 2012 Jens Petersen <petersen@redhat.com> - 1.8.2.1-6
+- update to cabal2spec-0.25.2
+
 * Thu Dec 22 2011 Jens Petersen <petersen@redhat.com> - 1.8.2.1-5
 - workaround texlive-2007 xelatex outputting to current dir
 
