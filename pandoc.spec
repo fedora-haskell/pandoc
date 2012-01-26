@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -44,6 +44,7 @@ BuildRequires:  ghc-xml-prof
 BuildRequires:  ghc-zip-archive-prof
 BuildRequires:  ghc-extensible-exceptions-prof
 BuildRequires:  ghc-random-prof
+Patch0:         pandoc-enable-highlighting-flag.patch
 # these two patches should be removed when texlive gets updated
 Patch1:         pandoc-1.8.2.1-use-iftex.patch
 Patch2:         pandoc-1.8.2.1-texlive2007-xelatex-outputdir.patch
@@ -69,12 +70,12 @@ This package provides pandoc's markdown2pdf convertion tool.
 
 %prep
 %setup -q
+%patch0 -p1 -b .orig
 %patch1 -p1 -b .orig
 %patch2 -p1 -b .orig
 
 
 %build
-%define cabal_configure_options -f highlighting
 %ghc_lib_build
 
 
@@ -113,6 +114,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Thu Jan 26 2012 Jens Petersen <petersen@redhat.com> - 1.8.2.1-7
+- set highlighting build flag by patching instead to help dependency tracking
+
 * Fri Jan  6 2012 Jens Petersen <petersen@redhat.com> - 1.8.2.1-6
 - update to cabal2spec-0.25.2
 
