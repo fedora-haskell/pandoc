@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.8.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -114,6 +114,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Tue Feb  7 2012 Jens Petersen <petersen@redhat.com> - 1.8.2.1-8
+- rebuild
+
 * Thu Jan 26 2012 Jens Petersen <petersen@redhat.com> - 1.8.2.1-7
 - set highlighting build flag by patching instead to help dependency tracking
 
