@@ -1,0 +1,5 @@
+PDF output requires texlive:
+
+    $ sudo yum install  texlive-latex texlive-xetex
+    :
+    $ pandoc -o output.pdf ...

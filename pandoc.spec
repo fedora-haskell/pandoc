@@ -13,8 +13,8 @@ reStructuredText, HTML, LaTeX, ConTeXt, Docbook, OpenDocument, ODT, RTF,\
 MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
-Version:        1.8.2.1
-Release:        9%{?dist}
+Version:        1.9.1.1
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -44,35 +44,19 @@ BuildRequires:  ghc-xml-prof
 BuildRequires:  ghc-zip-archive-prof
 BuildRequires:  ghc-extensible-exceptions-prof
 BuildRequires:  ghc-random-prof
-Patch0:         pandoc-enable-highlighting-flag.patch
+Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 # these two patches should be removed when texlive gets updated
-Patch1:         pandoc-1.8.2.1-use-iftex.patch
-Patch2:         pandoc-1.8.2.1-texlive2007-xelatex-outputdir.patch
+Patch1:         pandoc-default.latex-no-luatex.patch
+#Patch2:         pandoc-1.8.2.1-texlive2007-xelatex-outputdir.patch
 
 %description
 %{common_description}
 
-The pandoc-markdown2pdf subpackage provides markdown2pdf.
-
-
-%package markdown2pdf
-Summary:        Convert markdown to PDF via LaTeX
-Group:          Applications/Publishing
-Requires:       pandoc = %{version}-%{release}
-# for pdflatex and xelatex
-Requires:       texlive-latex, texlive-xetex
-
-%description markdown2pdf
-%{common_description}
-
-This package provides pandoc's markdown2pdf convertion tool.
-
 
 %prep
 %setup -q
-%patch0 -p1 -b .orig
 %patch1 -p1 -b .orig
-%patch2 -p1 -b .orig
+#%%patch2 -p1 -b .orig
 
 
 %build
@@ -98,22 +82,24 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %files
-%doc BUGS COPYING COPYRIGHT README
+%doc BUGS COPYING COPYRIGHT README* changelog
 %attr(755,root,root) %{_bindir}/%{name}
 %{_datadir}/%{name}-%{version}
 %attr(644,root,root) %{_mandir}/man1/pandoc.1*
 %attr(644,root,root) %{_mandir}/man5/*
 
 
-%files markdown2pdf
-%attr(755,root,root) %{_bindir}/markdown2pdf
-%attr(644,root,root) %{_mandir}/man1/markdown2pdf.1*
-
-
 %ghc_files
 
 
 %changelog
+* Mon Feb 13 2012 Jens Petersen <petersen@redhat.com> - 1.9.1.1-1
+- update to 1.9.1.1
+  http://johnmacfarlane.net/pandoc/releases.html#pandoc-1.9.1.1-2012-02-11
+- markdown2pdf is now handled by pandoc itself:
+  add README.fedora file documenting required texlive packages
+- add changelog file
+
 * Fri Feb 10 2012 Petr Pisar <ppisar@redhat.com> - 1.8.2.1-9
 - Rebuild against PCRE 8.30
 

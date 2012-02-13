@@ -1,7 +1,7 @@
---- pandoc-1.8.2.1/templates/default.latex.orig	2011-08-02 03:02:52.000000000 +0900
-+++ pandoc-1.8.2.1/templates/default.latex	2011-11-17 17:57:27.933740728 +0900
+--- pandoc-1.9.1.1/templates/default.latex~	2012-02-12 10:08:47.000000000 +0900
++++ pandoc-1.9.1.1/templates/default.latex	2012-02-13 13:19:32.020231122 +0900
 @@ -1,16 +1,17 @@
- \documentclass$if(fontsize)$[$fontsize$]$endif${article}
+ \documentclass[$if(fontsize)$$fontsize$,$endif$]{$documentclass$}
  \usepackage{amssymb,amsmath}
 -\usepackage{ifxetex,ifluatex}
 +%\usepackage{ifxetex,ifluatex}
