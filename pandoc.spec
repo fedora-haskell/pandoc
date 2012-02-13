@@ -27,8 +27,9 @@ BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros %{!?without_hscolour:hscolour}
 # END cabal2spec
 BuildRequires:  ghc-base64-bytestring-prof
+BuildRequires:  ghc-blaze-html-prof
 BuildRequires:  ghc-citeproc-hs-prof
-BuildRequires:  ghc-dlist-prof
+BuildRequires:  ghc-extensible-exceptions-prof
 BuildRequires:  ghc-highlighting-kate-prof
 BuildRequires:  ghc-HTTP-prof
 BuildRequires:  ghc-json-prof
@@ -36,14 +37,15 @@ BuildRequires:  ghc-mtl-prof
 BuildRequires:  ghc-network-prof
 BuildRequires:  ghc-pandoc-types-prof
 BuildRequires:  ghc-parsec-prof
+BuildRequires:  ghc-random-prof
 BuildRequires:  ghc-tagsoup-prof
+BuildRequires:  ghc-temporary-prof
 BuildRequires:  ghc-texmath-prof
 BuildRequires:  ghc-utf8-string-prof
 BuildRequires:  ghc-xhtml-prof
 BuildRequires:  ghc-xml-prof
 BuildRequires:  ghc-zip-archive-prof
-BuildRequires:  ghc-extensible-exceptions-prof
-BuildRequires:  ghc-random-prof
+BuildRequires:  ghc-zlib-prof
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 # these two patches should be removed when texlive gets updated
 Patch1:         pandoc-default.latex-no-luatex.patch
@@ -95,7 +97,8 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 %changelog
 * Mon Feb 13 2012 Jens Petersen <petersen@redhat.com> - 1.9.1.1-1
 - update to 1.9.1.1
-  http://johnmacfarlane.net/pandoc/releases.html#pandoc-1.9.1.1-2012-02-11
+  http://johnmacfarlane.net/pandoc/releases.html#pandoc-1.9-2012-02-05
+- new depends on blaze-html, temporary, zlib
 - markdown2pdf is now handled by pandoc itself:
   add README.fedora file documenting required texlive packages
 - add changelog file
