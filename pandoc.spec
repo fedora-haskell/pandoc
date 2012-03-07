@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.9.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -95,6 +95,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Wed Mar  7 2012 Jens Petersen <petersen@redhat.com> - 1.9.1.1-2
+- rebuild
+
 * Mon Feb 13 2012 Jens Petersen <petersen@redhat.com> - 1.9.1.1-1
 - update to 1.9.1.1
   http://johnmacfarlane.net/pandoc/releases.html#pandoc-1.9-2012-02-05
