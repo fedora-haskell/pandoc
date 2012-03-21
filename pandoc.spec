@@ -13,8 +13,8 @@ reStructuredText, HTML, LaTeX, ConTeXt, Docbook, OpenDocument, ODT, RTF,\
 MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
-Version:        1.9.1.1
-Release:        2%{?dist}
+Version:        1.9.1.2
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -91,10 +91,13 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 %attr(644,root,root) %{_mandir}/man5/*
 
 
-%ghc_files
+%ghc_files COPYRIGHT
 
 
 %changelog
+* Wed Mar 21 2012 Jens Petersen <petersen@redhat.com> - 1.9.1.2-1
+- update to 1.9.1.2
+
 * Wed Mar  7 2012 Jens Petersen <petersen@redhat.com> - 1.9.1.1-2
 - rebuild
 
