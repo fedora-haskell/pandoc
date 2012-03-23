@@ -1,7 +1,8 @@
---- pandoc-1.9.1.1/templates/default.latex~	2012-02-12 10:08:47.000000000 +0900
-+++ pandoc-1.9.1.1/templates/default.latex	2012-02-13 13:19:32.020231122 +0900
-@@ -1,16 +1,17 @@
- \documentclass[$if(fontsize)$$fontsize$,$endif$]{$documentclass$}
+diff -u pandoc-1.9.1.2/templates/default.latex\~ pandoc-1.9.1.2/templates/default.latex
+--- pandoc-1.9.1.2/templates/default.latex~	2012-03-10 07:53:17.000000000 +0900
++++ pandoc-1.9.1.2/templates/default.latex	2012-03-23 18:18:31.619693151 +0900
+@@ -1,19 +1,20 @@
+ \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$]{$documentclass$}
  \usepackage{amssymb,amsmath}
 -\usepackage{ifxetex,ifluatex}
 +%\usepackage{ifxetex,ifluatex}
@@ -9,16 +10,20 @@
  \ifxetex
    \usepackage{fontspec,xltxtra,xunicode}
    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+   \newcommand{\euro}{€}
  \else
 -  \ifluatex
 -    \usepackage{fontspec}
 -    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+-    \newcommand{\euro}{€}
 -  \else
 +%  \ifluatex
 +%    \usepackage{fontspec}
 +%    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
++%    \newcommand{\euro}{€}
 +%  \else
      \usepackage[utf8]{inputenc}
+     \usepackage{eurosym}
 -  \fi
 +%  \fi
  \fi
