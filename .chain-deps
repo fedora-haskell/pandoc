@@ -1,1 +1,1 @@
-ghc-digest ghc-dlist ghc-json ghc-pandoc-types ghc-tagsoup ghc-xml : ghc-citeproc-hs ghc-texmath ghc-zip-archive :
+ghc-base64-bytestring ghc-digest ghc-dlist ghc-json ghc-pandoc-types ghc-pcre-light ghc-temporary ghc-tagsoup ghc-xml : ghc-citeproc-hs ghc-texmath ghc-zip-archive highlighting-kate :
