@@ -1,7 +1,7 @@
-diff -u pandoc-1.9.1.2/templates/default.latex\~ pandoc-1.9.1.2/templates/default.latex
---- pandoc-1.9.1.2/templates/default.latex~	2012-03-10 07:53:17.000000000 +0900
-+++ pandoc-1.9.1.2/templates/default.latex	2012-03-23 18:18:31.619693151 +0900
-@@ -1,19 +1,20 @@
+diff -u pandoc-1.9.2/templates/default.latex\~ pandoc-1.9.2/templates/default.latex
+--- pandoc-1.9.2/templates/default.latex~	2012-04-06 05:13:56.000000000 +0900
++++ pandoc-1.9.2/templates/default.latex	2012-04-25 13:20:25.024947625 +0900
+@@ -1,6 +1,7 @@
  \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$]{$documentclass$}
  \usepackage{amssymb,amsmath}
 -\usepackage{ifxetex,ifluatex}
@@ -10,22 +10,50 @@ diff -u pandoc-1.9.1.2/templates/default.latex\~ pandoc-1.9.1.2/templates/defaul
  \ifxetex
    \usepackage{fontspec,xltxtra,xunicode}
    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-   \newcommand{\euro}{€}
+@@ -18,28 +19,28 @@
+   \setmathfont{$mathfont$}
+ $endif$
  \else
 -  \ifluatex
 -    \usepackage{fontspec}
 -    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 -    \newcommand{\euro}{€}
+-$if(mainfont)$
+-    \setmainfont{$mainfont$}
+-$endif$
+-$if(sansfont)$
+-    \setsansfont{$sansfont$}
+-$endif$
+-$if(monofont)$
+-    \setmonofont{$monofont$}
+-$endif$
+-$if(mathfont)$
+-    \setmathfont{$mathfont$}
+-$endif$
 -  \else
 +%  \ifluatex
 +%    \usepackage{fontspec}
 +%    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 +%    \newcommand{\euro}{€}
++%$if(mainfont)$
++%    \setmainfont{$mainfont$}
++%$endif$
++%$if(sansfont)$
++%    \setsansfont{$sansfont$}
++%$endif$
++%$if(monofont)$
++%    \setmonofont{$monofont$}
++%$endif$
++%$if(mathfont)$
++%    \setmathfont{$mathfont$}
++%$endif$
 +%  \else
      \usepackage[utf8]{inputenc}
+ $if(euro)$
      \usepackage{eurosym}
+ $endif$
 -  \fi
 +%  \fi
  \fi
- $if(natbib)$
- \usepackage{natbib}
+ $if(geometry)$
+ \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
