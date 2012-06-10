@@ -47,9 +47,8 @@ BuildRequires:  ghc-xml-prof
 BuildRequires:  ghc-zip-archive-prof
 BuildRequires:  ghc-zlib-prof
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
-# these two patches should be removed when texlive gets updated
+# this patch should be removed when texlive gets updated
 Patch1:         pandoc-default.latex-no-luatex.patch
-#Patch2:         pandoc-1.8.2.1-texlive2007-xelatex-outputdir.patch
 
 %description
 %{common_description}
@@ -58,7 +57,6 @@ Patch1:         pandoc-default.latex-no-luatex.patch
 %prep
 %setup -q
 %patch1 -p1 -b .orig
-#%%patch2 -p1 -b .orig
 
 
 %build
