@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.9.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -93,6 +93,9 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Thu Jun 21 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.1-2
+- rebuild
+
 * Sun Jun 10 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.1-1
 - update to 1.9.4.1
 
