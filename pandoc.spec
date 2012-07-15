@@ -13,8 +13,8 @@ reStructuredText, HTML, LaTeX, ConTeXt, Docbook, OpenDocument, ODT, RTF,\
 MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
-Version:        1.9.4.1
-Release:        2%{?dist}
+Version:        1.9.4.2
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -26,26 +26,26 @@ ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros %{!?without_hscolour:hscolour}
 # END cabal2spec
-BuildRequires:  ghc-base64-bytestring-prof
-BuildRequires:  ghc-blaze-html-prof
-BuildRequires:  ghc-citeproc-hs-prof
-BuildRequires:  ghc-extensible-exceptions-prof
-BuildRequires:  ghc-highlighting-kate-prof
-BuildRequires:  ghc-HTTP-prof
-BuildRequires:  ghc-json-prof
-BuildRequires:  ghc-mtl-prof
-BuildRequires:  ghc-network-prof
-BuildRequires:  ghc-pandoc-types-prof
-BuildRequires:  ghc-parsec-prof
-BuildRequires:  ghc-random-prof
-BuildRequires:  ghc-tagsoup-prof
-BuildRequires:  ghc-temporary-prof
-BuildRequires:  ghc-texmath-prof
-BuildRequires:  ghc-utf8-string-prof
-BuildRequires:  ghc-xhtml-prof
-BuildRequires:  ghc-xml-prof
-BuildRequires:  ghc-zip-archive-prof
-BuildRequires:  ghc-zlib-prof
+BuildRequires:  ghc-base64-bytestring-devel
+BuildRequires:  ghc-blaze-html-devel
+BuildRequires:  ghc-citeproc-hs-devel
+BuildRequires:  ghc-extensible-exceptions-devel
+BuildRequires:  ghc-highlighting-kate-devel
+BuildRequires:  ghc-HTTP-devel
+BuildRequires:  ghc-json-devel
+BuildRequires:  ghc-mtl-devel
+BuildRequires:  ghc-network-devel
+BuildRequires:  ghc-pandoc-types-devel
+BuildRequires:  ghc-parsec-devel
+BuildRequires:  ghc-random-devel
+BuildRequires:  ghc-tagsoup-devel
+BuildRequires:  ghc-temporary-devel
+BuildRequires:  ghc-texmath-devel
+BuildRequires:  ghc-utf8-string-devel
+BuildRequires:  ghc-xhtml-devel
+BuildRequires:  ghc-xml-devel
+BuildRequires:  ghc-zip-archive-devel
+BuildRequires:  ghc-zlib-devel
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 # this patch should be removed when texlive gets updated
 Patch1:         pandoc-default.latex-no-luatex.patch
@@ -68,6 +68,9 @@ Patch1:         pandoc-default.latex-no-luatex.patch
 
 rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
 
+ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
+
+
 %ghc_package
 
 %ghc_description
@@ -84,6 +87,7 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 %files
 %doc BUGS COPYING COPYRIGHT README* changelog
 %attr(755,root,root) %{_bindir}/%{name}
+%attr(-,root,root) %{_bindir}/hsmarkdown
 %{_datadir}/%{name}-%{version}
 %attr(644,root,root) %{_mandir}/man1/pandoc.1*
 %attr(644,root,root) %{_mandir}/man5/*
@@ -93,6 +97,11 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 
 %changelog
+* Sun Jul 15 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-1
+- update to 1.9.4.2
+- add hsmarkdown symlink
+- change prof BRs to devel
+
 * Thu Jun 21 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.1-2
 - rebuild
 
