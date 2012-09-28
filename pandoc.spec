@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.9.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -48,7 +48,7 @@ BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 # this patch should be removed when texlive gets updated
-Patch1:         pandoc-default.latex-no-luatex.patch
+Patch1:         pandoc-templates-disable-luatex.patch
 
 %description
 %{common_description}
@@ -97,6 +97,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Sep 28 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-3
+- also disable luatex in the default.beamer template (#861300)
+
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.9.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 

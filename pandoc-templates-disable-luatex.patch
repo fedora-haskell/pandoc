@@ -1,0 +1,48 @@
+diff -up pandoc-1.9.4.2/templates/default.beamer~ pandoc-1.9.4.2/templates/default.beamer
+--- pandoc-1.9.4.2/templates/default.beamer~	2012-06-30 00:34:35.000000000 +0900
++++ pandoc-1.9.4.2/templates/default.beamer	2012-09-28 16:47:50.937842182 +0900
+@@ -6,18 +6,19 @@ $if(colortheme)$
+ \usecolortheme{$colortheme$}
+ $endif$
+ \usepackage{amssymb,amsmath}
+-\usepackage{ifxetex,ifluatex}
++%\usepackage{ifxetex,ifluatex}
++\usepackage{ifxetex}
+ \usepackage{fixltx2e} % provides \textsubscript
+ \ifxetex
+   \usepackage{fontspec,xltxtra,xunicode}
+   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+ \else
+-  \ifluatex
+-    \usepackage{fontspec}
+-    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+-  \else
++%  \ifluatex
++%    \usepackage{fontspec}
++%    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
++%  \else
+     \usepackage[utf8]{inputenc}
+-  \fi
++%  \fi
+ \fi
+ $if(natbib)$
+ \usepackage{natbib}
+diff -up pandoc-1.9.4.2/templates/default.latex~ pandoc-1.9.4.2/templates/default.latex
+--- pandoc-1.9.4.2/templates/default.latex~	2012-06-30 00:34:35.000000000 +0900
++++ pandoc-1.9.4.2/templates/default.latex	2012-09-28 16:56:13.949987292 +0900
+@@ -2,11 +2,13 @@
+ \usepackage[T1]{fontenc}
+ \usepackage{lmodern}
+ \usepackage{amssymb,amsmath}
+-\usepackage{ifxetex,ifluatex}
++%\usepackage{ifxetex,ifluatex}
++\usepackage{ifxetex}
+ \usepackage{fixltx2e} % provides \textsubscript
+ % use microtype if available
+ \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
++%\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
++\ifnum 0\ifxetex 1\fi=0 % if pdftex
+   \usepackage[utf8]{inputenc}
+ $if(euro)$
+   \usepackage{eurosym}
