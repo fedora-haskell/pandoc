@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.9.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -110,10 +110,16 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %attr(644,root,root) %{_mandir}/man5/*
 
 
+%files pdf
+
+
 %ghc_files COPYRIGHT
 
 
 %changelog
+* Tue Oct  2 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-5
+- add a files section for the pdf subpackage so it is actually created
+
 * Tue Oct  2 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-4
 - add a pdf meta-subpackage for the texlive packages needed for pdf output
 
