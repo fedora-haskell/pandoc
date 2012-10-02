@@ -14,7 +14,7 @@ MediaWiki, groff man pages, EPUB, and S5 and Slidy HTML slide shows.
 
 Name:           %{pkg_name}
 Version:        1.9.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Markup conversion tool for markdown
 
 Group:          Applications/Publishing
@@ -46,12 +46,29 @@ BuildRequires:  ghc-xhtml-devel
 BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
-Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 # this patch should be removed when texlive gets updated
 Patch1:         pandoc-templates-disable-luatex.patch
 
 %description
 %{common_description}
+
+For pdf output please also install pandoc-pdf.
+
+
+%package pdf
+Summary:        Metapackage for pandoc xetex support
+Requires:       %{name} = %{version}
+# for pdflatex
+Requires:       texlive-latex
+# for xelatex and ifxetex.sty
+Requires:       texlive-xetex
+Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
+
+%description pdf
+%{common_description}
+
+This package pulls in the texlive latex and xetex packages
+needed by pandoc to generate pdf output.
 
 
 %prep
@@ -97,6 +114,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue Oct  2 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-4
+- add a pdf meta-subpackage for the texlive packages needed for pdf output
+
 * Fri Sep 28 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-3
 - also disable luatex in the default.beamer template (#861300)
 
