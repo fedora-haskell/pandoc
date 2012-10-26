@@ -120,7 +120,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 %changelog
 * Fri Oct 26 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-6
-- disable threaded rts with upstream patch copied from Debian
+- disable threaded rts with upstream patch copied from Debian (#862543)
 
 * Tue Oct  2 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-5
 - add a files section for the pdf subpackage so it is actually created
