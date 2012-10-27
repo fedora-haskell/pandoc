@@ -1,4 +1,3 @@
-# cabal2spec-0.25.2
 # https://fedoraproject.org/wiki/Packaging:Haskell
 # https://fedoraproject.org/wiki/PackagingDrafts/Haskell
 
@@ -7,45 +6,57 @@
 %global common_summary Haskell %{pkg_name} library
 
 %global common_description Pandoc is a tool and Haskell library for converting markup formats.\
-It can read markdown and (subsets of) reStructuredText, HTML, and LaTeX,\
-and can write markdown, reStructuredText, HTML, LaTeX, ConTeXt, Docbook,\
-OpenDocument, ODT, RTF, MediaWiki, groff man pages, EPUB, and\
-S5 and Slidy HTML slideshows.
+It can read markdown and (subsets of) HTML, reStructuredText, LaTeX, DocBook,\
+and Textile, and can write markdown, reStructuredText, HTML, LaTeX, ConTeXt,\
+Docbook, OpenDocument, ODT, Word docx, RTF, MediaWiki, Textile, groff man pages,\
+plain text, Emacs Org-Mode, AsciiDoc, EPUB, and S5, Slidy and Slideous HTML\
+slide-shows.\
+\
+Pandoc extends standard markdown syntax with footnotes, embedded LaTeX,\
+definition lists, tables, and other features. A compatibility mode is\
+provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
-Version:        1.9.4.2
-Release:        6%{?dist}
+Version:        1.9.4.5
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
-Group:          Applications/Publishing
 License:        GPLv2+
-# BEGIN cabal2spec
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
-ExclusiveArch:  %{ghc_arches}
+
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-rpm-macros %{!?without_hscolour:hscolour}
-# END cabal2spec
+BuildRequires:  ghc-rpm-macros
+# Begin cabal-rpm deps:
+BuildRequires:  ghc-HTTP-devel
 BuildRequires:  ghc-base64-bytestring-devel
 BuildRequires:  ghc-blaze-html-devel
+BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-citeproc-hs-devel
+BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
+BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-highlighting-kate-devel
-BuildRequires:  ghc-HTTP-devel
 BuildRequires:  ghc-json-devel
 BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-devel
+BuildRequires:  ghc-old-locale-devel
+BuildRequires:  ghc-old-time-devel
 BuildRequires:  ghc-pandoc-types-devel
 BuildRequires:  ghc-parsec-devel
+BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-random-devel
+BuildRequires:  ghc-syb-devel
 BuildRequires:  ghc-tagsoup-devel
 BuildRequires:  ghc-temporary-devel
 BuildRequires:  ghc-texmath-devel
+BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-utf8-string-devel
-BuildRequires:  ghc-xhtml-devel
 BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
+# End cabal-rpm deps
 # this patch should be removed when texlive gets updated
 Patch1:         pandoc-templates-disable-luatex.patch
 Patch2:         pandoc-1.9.4-no-threaded-runtime.patch
@@ -119,6 +130,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Oct 26 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-1
+- update to 1.9.4.5
+- refresh with cabal-rpm
+
 * Fri Oct 26 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.2-6
 - disable threaded rts with upstream patch copied from Debian (#862543)
 
