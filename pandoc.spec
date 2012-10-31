@@ -18,7 +18,7 @@ provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
 Version:        1.9.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -57,8 +57,6 @@ BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 # End cabal-rpm deps
-# this patch should be removed when texlive gets updated
-Patch1:         pandoc-templates-disable-luatex.patch
 Patch2:         pandoc-1.9.4-no-threaded-runtime.patch
 
 %description
@@ -70,10 +68,7 @@ For pdf output please also install pandoc-pdf.
 %package pdf
 Summary:        Metapackage for pandoc xetex support
 Requires:       %{name} = %{version}
-# for pdflatex
 Requires:       texlive-latex
-# for xelatex and ifxetex.sty
-Requires:       texlive-xetex
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 
 %description pdf
@@ -85,7 +80,6 @@ needed by pandoc to generate pdf output.
 
 %prep
 %setup -q
-%patch1 -p1 -b .orig
 %patch2 -p1 -b .orig
 
 
@@ -130,6 +124,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Oct 31 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-2
+- drop the latex template patch for old TeXLive
+
 * Fri Oct 26 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-1
 - update to 1.9.4.5
 - refresh with cabal-rpm
