@@ -18,7 +18,7 @@ provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
 Version:        1.9.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -124,6 +124,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Mon Nov 19 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-3
+- rebuild
+
 * Wed Oct 31 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-2
 - drop the latex template patch for old TeXLive
 
