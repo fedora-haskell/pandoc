@@ -18,7 +18,7 @@ provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
 Version:        1.9.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
