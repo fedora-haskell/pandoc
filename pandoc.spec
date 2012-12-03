@@ -124,6 +124,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Nov 21 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-4
+- rebuild
+
 * Mon Nov 19 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-3
 - rebuild
 
