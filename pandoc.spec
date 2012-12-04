@@ -24,6 +24,7 @@ Summary:        Markup conversion tool for markdown
 License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
+Patch2:         pandoc-1.9.4-no-threaded-runtime.patch
 
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
@@ -57,7 +58,6 @@ BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 # End cabal-rpm deps
-Patch2:         pandoc-1.9.4-no-threaded-runtime.patch
 
 %description
 %{common_description}
