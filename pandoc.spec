@@ -18,7 +18,7 @@ provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
 Version:        1.9.4.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -124,6 +124,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.9.4.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Wed Nov 21 2012 Jens Petersen <petersen@redhat.com> - 1.9.4.5-4
 - rebuild
 
