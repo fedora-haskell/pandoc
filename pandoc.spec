@@ -34,6 +34,7 @@ BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-citeproc-hs-devel
 BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-data-default-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
 BuildRequires:  ghc-filepath-devel
@@ -51,8 +52,8 @@ BuildRequires:  ghc-syb-devel
 BuildRequires:  ghc-tagsoup-devel
 BuildRequires:  ghc-temporary-devel
 BuildRequires:  ghc-texmath-devel
+BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
-BuildRequires:  ghc-utf8-string-devel
 BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
