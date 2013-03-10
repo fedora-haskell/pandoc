@@ -17,14 +17,13 @@ definition lists, tables, and other features. A compatibility mode is\
 provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
-Version:        1.9.4.5
-Release:        5%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
 Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
-Patch2:         pandoc-1.9.4-no-threaded-runtime.patch
 
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
@@ -58,6 +57,7 @@ BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 # End cabal-rpm deps
+BuildRequires:  chrpath
 
 %description
 %{common_description}
@@ -80,7 +80,6 @@ needed by pandoc to generate pdf output.
 
 %prep
 %setup -q
-%patch2 -p1 -b .orig
 
 
 %build
@@ -93,6 +92,8 @@ needed by pandoc to generate pdf output.
 rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
+
+%ghc_fix_dynamic_rpath pandoc
 
 
 %ghc_package
@@ -124,6 +125,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Sun Mar 10 2013 Jens Petersen <petersen@redhat.com> - 1.10.1-1
+- update to 1.10.1
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.9.4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
