@@ -81,6 +81,7 @@ needed by pandoc to generate pdf output.
 
 %prep
 %setup -q
+cabal-tweak-dep-ver blaze-html "< 0.6" "< 0.7"
 
 
 %build
@@ -128,6 +129,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %changelog
 * Sun Mar 10 2013 Jens Petersen <petersen@redhat.com> - 1.10.1-1
 - update to 1.10.1
+- allow blaze-html-0.6
 
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.9.4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
