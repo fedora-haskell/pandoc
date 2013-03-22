@@ -17,7 +17,7 @@ definition lists, tables, and other features. A compatibility mode is\
 provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
-Version:        1.10.1
+Version:        1.11.1
 Release:        1%{?dist}
 Summary:        Markup conversion tool for markdown
 
@@ -81,7 +81,6 @@ needed by pandoc to generate pdf output.
 
 %prep
 %setup -q
-cabal-tweak-dep-ver blaze-html "< 0.6" "< 0.7"
 
 
 %build
@@ -127,6 +126,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Mar 22 2013 Jens Petersen <petersen@redhat.com> - 1.11.1-1
+- update to 1.11.1
+
 * Sun Mar 10 2013 Jens Petersen <petersen@redhat.com> - 1.10.1-1
 - update to 1.10.1
 - allow blaze-html-0.6
