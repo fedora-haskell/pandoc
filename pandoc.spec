@@ -67,7 +67,7 @@ For pdf output please also install pandoc-pdf.
 
 
 %package pdf
-Summary:        Metapackage for pandoc xetex support
+Summary:        Metapackage for pandoc pdf support
 Requires:       %{name} = %{version}
 Requires:       texlive-collection-latex
 Requires:       texlive-ec
@@ -76,8 +76,8 @@ Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 %description pdf
 %{common_description}
 
-This package pulls in the texlive latex and xetex packages
-needed by pandoc to generate pdf output.
+This package pulls in the texlive latex package collection needed by
+pandoc to generate pdf output.
 
 
 %prep
