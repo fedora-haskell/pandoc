@@ -18,7 +18,7 @@ provided for those who need a drop-in replacement for Markdown.pl.
 
 Name:           %{pkg_name}
 Version:        1.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -69,7 +69,8 @@ For pdf output please also install pandoc-pdf.
 %package pdf
 Summary:        Metapackage for pandoc xetex support
 Requires:       %{name} = %{version}
-Requires:       texlive-latex
+Requires:       texlive-collection-latex
+Requires:       texlive-ec
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
 
 %description pdf
@@ -126,6 +127,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed May  1 2013 Jens Petersen <petersen@redhat.com> - 1.11.1-2
+- pandoc-pdf now requires texlive-collection-latex and texlive-ec (#957876)
+
 * Fri Mar 22 2013 Jens Petersen <petersen@redhat.com> - 1.11.1-1
 - update to 1.11.1
 
