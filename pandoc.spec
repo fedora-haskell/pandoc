@@ -1,24 +1,10 @@
 # https://fedoraproject.org/wiki/Packaging:Haskell
-# https://fedoraproject.org/wiki/PackagingDrafts/Haskell
 
 %global pkg_name pandoc
 
-%global common_summary Haskell %{pkg_name} library
-
-%global common_description Pandoc is a tool and Haskell library for converting markup formats.\
-It can read markdown and (subsets of) HTML, reStructuredText, LaTeX, DocBook,\
-and Textile, and can write markdown, reStructuredText, HTML, LaTeX, ConTeXt,\
-Docbook, OpenDocument, ODT, Word docx, RTF, MediaWiki, Textile, groff man pages,\
-plain text, Emacs Org-Mode, AsciiDoc, EPUB, and S5, Slidy and Slideous HTML\
-slide-shows.\
-\
-Pandoc extends standard markdown syntax with footnotes, embedded LaTeX,\
-definition lists, tables, and other features. A compatibility mode is\
-provided for those who need a drop-in replacement for Markdown.pl.
-
 Name:           %{pkg_name}
 Version:        1.11.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -31,6 +17,7 @@ BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-HTTP-devel
 BuildRequires:  ghc-base64-bytestring-devel
 BuildRequires:  ghc-blaze-html-devel
+BuildRequires:  ghc-blaze-markup-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-citeproc-hs-devel
 BuildRequires:  ghc-containers-devel
@@ -61,9 +48,36 @@ BuildRequires:  ghc-zlib-devel
 BuildRequires:  chrpath
 
 %description
-%{common_description}
+Pandoc is a tool and Haskell library for converting markup formats.
+It can read markdown and (subsets of) HTML, reStructuredText, LaTeX, DocBook,
+MediaWiki markup, and Textile, and can write markdown, reStructuredText, HTML,
+LaTeX, ConTeXt, Docbook, OpenDocument, ODT, Word docx, RTF, MediaWiki, Textile,
+groff man pages, plain text, Emacs Org-Mode, AsciiDoc, EPUB, FictionBook2, and
+S5, Slidy and Slideous HTML slide-shows.
+
+Pandoc extends standard markdown syntax with footnotes, embedded LaTeX,
+definition lists, tables, and other features. A compatibility mode is
+provided for those who need a drop-in replacement for Markdown.pl.
 
 For pdf output please also install pandoc-pdf.
+
+
+%package -n ghc-%{name}
+Summary:        Haskell %{name} library
+
+%description -n ghc-%{name}
+This package provides the Haskell %{name} shared library.
+
+
+%package -n ghc-%{name}-devel
+Summary:        Haskell %{name} library development files
+Requires:       ghc-compiler = %{ghc_version}
+Requires(post): ghc-compiler = %{ghc_version}
+Requires(postun): ghc-compiler = %{ghc_version}
+Requires:       ghc-%{name} = %{version}-%{release}
+
+%description -n ghc-%{name}-devel
+This package provides the Haskell %{name} library development files.
 
 
 %package pdf
@@ -72,12 +86,14 @@ Requires:       %{name} = %{version}
 Requires:       texlive-collection-latex
 Requires:       texlive-ec
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
+Obsoletes:      pandoc-pdf < %{version}-%{release}
 
 %description pdf
-%{common_description}
+This package pulls in the TeXLive latex package collection needed by
+pandoc to generate pdf output using pdflatex.
 
-This package pulls in the texlive latex package collection needed by
-pandoc to generate pdf output.
+To use --latex-engine=xelatex or lualatex, install texlive-collection-xetex
+or texlive-collection-luatex respectively.
 
 
 %prep
@@ -98,17 +114,12 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %ghc_fix_dynamic_rpath pandoc
 
 
-%ghc_package
-
-%ghc_description
-
-
-%ghc_devel_package
-
-%ghc_devel_description
+%post -n ghc-%{name}-devel
+%ghc_pkg_recache
 
 
-%ghc_devel_post_postun
+%postun -n ghc-%{name}-devel
+%ghc_pkg_recache
 
 
 %files
@@ -123,10 +134,17 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %files pdf
 
 
-%ghc_files COPYRIGHT
+%files -n ghc-%{name} -f ghc-%{name}.files
+%doc COPYING COPYRIGHT
+
+
+%files -n ghc-%{name}-devel -f ghc-%{name}-devel.files
 
 
 %changelog
+* Mon Jun 10 2013 Jens Petersen <petersen@redhat.com>
+- update to new simplified Haskell Packaging Guidelines
+
 * Wed May  1 2013 Jens Petersen <petersen@redhat.com> - 1.11.1-2
 - pandoc-pdf now requires texlive-collection-latex and texlive-ec (#957876)
 
