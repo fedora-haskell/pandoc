@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        1.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -142,6 +142,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.11.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Mon Jun 10 2013 Jens Petersen <petersen@redhat.com>
 - update to new simplified Haskell Packaging Guidelines
 
