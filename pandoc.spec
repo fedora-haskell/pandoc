@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        1.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -142,6 +142,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue Aug 06 2013 Adam Williamson <awilliam@redhat.com> - 1.11.1-5
+- rebuild for new libbibutils
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
