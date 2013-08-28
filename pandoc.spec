@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        1.11.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Markup conversion tool for markdown
 
 License:        GPLv2+
@@ -46,6 +46,7 @@ BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 # End cabal-rpm deps
 BuildRequires:  chrpath
+ExcludeArch:    armv7hl
 
 %description
 Pandoc is a tool and Haskell library for converting markup formats.
@@ -142,6 +143,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Aug 28 2013 Jens Petersen <petersen@redhat.com> - 1.11.1-6
+- temporarily exclude armv7hl since build with ghc-7.6.3 and llvm-3.3 hanging
+  mysteriously (#992430)
+
 * Tue Aug 06 2013 Adam Williamson <awilliam@redhat.com> - 1.11.1-5
 - rebuild for new libbibutils
 
