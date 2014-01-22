@@ -3,9 +3,9 @@
 %global pkg_name pandoc
 
 Name:           %{pkg_name}
-Version:        1.11.1
-Release:        6%{?dist}
-Summary:        Markup conversion tool for markdown
+Version:        1.12.3.1
+Release:        1%{?dist}
+Summary:        Conversion between markup formats
 
 License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
@@ -14,19 +14,25 @@ Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 # Begin cabal-rpm deps:
+BuildRequires:  alex
+BuildRequires:  chrpath
 BuildRequires:  ghc-HTTP-devel
+BuildRequires:  ghc-aeson-devel
+BuildRequires:  ghc-array-devel
+BuildRequires:  ghc-attoparsec-devel
 BuildRequires:  ghc-base64-bytestring-devel
+BuildRequires:  ghc-binary-devel
 BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-blaze-markup-devel
 BuildRequires:  ghc-bytestring-devel
-BuildRequires:  ghc-citeproc-hs-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-data-default-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-highlighting-kate-devel
-BuildRequires:  ghc-json-devel
+BuildRequires:  ghc-hslua-devel
+BuildRequires:  ghc-http-types-devel
 BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-devel
 BuildRequires:  ghc-old-locale-devel
@@ -41,24 +47,29 @@ BuildRequires:  ghc-temporary-devel
 BuildRequires:  ghc-texmath-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
+BuildRequires:  ghc-unordered-containers-devel
+BuildRequires:  ghc-vector-devel
 BuildRequires:  ghc-xml-devel
+BuildRequires:  ghc-yaml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
+BuildRequires:  happy
 # End cabal-rpm deps
-BuildRequires:  chrpath
 ExcludeArch:    armv7hl
 
 %description
-Pandoc is a tool and Haskell library for converting markup formats.
-It can read markdown and (subsets of) HTML, reStructuredText, LaTeX, DocBook,
-MediaWiki markup, and Textile, and can write markdown, reStructuredText, HTML,
-LaTeX, ConTeXt, Docbook, OpenDocument, ODT, Word docx, RTF, MediaWiki, Textile,
-groff man pages, plain text, Emacs Org-Mode, AsciiDoc, EPUB, FictionBook2, and
-S5, Slidy and Slideous HTML slide-shows.
+Pandoc is a Haskell library for converting from one markup format to another,
+and a command-line tool that uses this library. It can read markdown and
+(subsets of) HTML, reStructuredText, LaTeX, DocBook, MediaWiki markup, Haddock
+markup, OPML, and Textile, and it can write markdown, reStructuredText, HTML,
+LaTeX, ConTeXt, Docbook, OPML, OpenDocument, ODT, Word docx, RTF, MediaWiki,
+Textile, groff man pages, plain text, Emacs Org-Mode, AsciiDoc, EPUB (v2 and
+v3), FictionBook2, and several kinds of HTML/javascript slide shows (S5, Slidy,
+Slideous, DZSlides, reveal.js).
 
 Pandoc extends standard markdown syntax with footnotes, embedded LaTeX,
-definition lists, tables, and other features. A compatibility mode is
-provided for those who need a drop-in replacement for Markdown.pl.
+definition lists, tables, and other features. A compatibility mode is provided
+for those who need a drop-in replacement for Markdown.pl.
 
 For pdf output please also install pandoc-pdf.
 
@@ -72,10 +83,11 @@ This package provides the Haskell %{name} shared library.
 
 %package -n ghc-%{name}-devel
 Summary:        Haskell %{name} library development files
+Provides:       ghc-%{name}-static = %{version}-%{release}
 Requires:       ghc-compiler = %{ghc_version}
 Requires(post): ghc-compiler = %{ghc_version}
 Requires(postun): ghc-compiler = %{ghc_version}
-Requires:       ghc-%{name} = %{version}-%{release}
+Requires:       ghc-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n ghc-%{name}-devel
 This package provides the Haskell %{name} library development files.
@@ -99,6 +111,7 @@ or texlive-collection-luatex respectively.
 
 %prep
 %setup -q
+cabal-tweak-flag http-conduit False
 
 
 %build
@@ -143,6 +156,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Jan 22 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.1-1
+- update to 1.12.3.1
+- disable http-conduit
+
 * Wed Aug 28 2013 Jens Petersen <petersen@redhat.com> - 1.11.1-6
 - temporarily exclude armv7hl since build with ghc-7.6.3 and llvm-3.3 hanging
   mysteriously (#992430)
