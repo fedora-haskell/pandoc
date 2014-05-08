@@ -3,13 +3,13 @@
 %global pkg_name pandoc
 
 Name:           %{pkg_name}
-Version:        1.12.3.1
+Version:        1.12.3.3
 Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
-Source0:        http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
+Source0:        http://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
@@ -32,7 +32,6 @@ BuildRequires:  ghc-extensible-exceptions-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-highlighting-kate-devel
 BuildRequires:  ghc-hslua-devel
-BuildRequires:  ghc-http-types-devel
 BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-devel
 BuildRequires:  ghc-old-locale-devel
@@ -156,6 +155,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Thu May 08 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.3-1
+- update to 1.12.3.3
+
 * Wed Jan 22 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.1-1
 - update to 1.12.3.1
 - disable http-conduit
