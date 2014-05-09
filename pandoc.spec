@@ -54,6 +54,7 @@ BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
 # End cabal-rpm deps
+ExcludeArch:    armv7hl
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -156,7 +157,6 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %changelog
 * Thu May 08 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.3-1
 - update to 1.12.3.3
-- reenable ARM
 
 * Wed Jan 22 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.1-1
 - update to 1.12.3.1
