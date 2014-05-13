@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        1.12.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -54,7 +54,6 @@ BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
 # End cabal-rpm deps
-ExcludeArch:    armv7hl
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -114,6 +113,11 @@ cabal-tweak-flag http-conduit False
 
 
 %build
+# llvm opt hangs on Pretty with -O2 with ghc-7.6! (#992430)
+# remove for ghc-7.8
+%ifarch armv7hl
+cabal_configure_extra_options=--ghc-option="-O1"
+%endif
 %ghc_lib_build
 
 
@@ -155,6 +159,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue May 13 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.3-2
+- fix building on ARM (llvm) by using -O1 (#992430)
+
 * Thu May 08 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.3-1
 - update to 1.12.3.3
 
