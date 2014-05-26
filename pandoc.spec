@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        1.12.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -159,6 +159,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Mon May 26 2014 Adam Williamson <awilliam@redhat.com> - 1.12.3.3-3
+- rebuild for new ghc-scientific
+
 * Tue May 13 2014 Jens Petersen <petersen@redhat.com> - 1.12.3.3-2
 - fix building on ARM (llvm) by using -O1 (#992430)
 
