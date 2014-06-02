@@ -97,7 +97,6 @@ Requires:       %{name} = %{version}
 Requires:       texlive-collection-latex
 Requires:       texlive-ec
 Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
-Obsoletes:      pandoc-pdf < %{version}-%{release}
 
 %description pdf
 This package pulls in the TeXLive latex package collection needed by
