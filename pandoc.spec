@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        1.12.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -158,6 +158,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.12.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon May 26 2014 Adam Williamson <awilliam@redhat.com> - 1.12.3.3-3
 - rebuild for new ghc-scientific
 
