@@ -1,10 +1,16 @@
 # https://fedoraproject.org/wiki/Packaging:Haskell
 
+%global ghc_without_dynamic 1
+%global ghc_without_shared 1
+%global without_prof 1
+%global without_haddock 1
+
 %global pkg_name pandoc
 
 Name:           %{pkg_name}
 Version:        1.12.3.3
-Release:        4%{?dist}
+Release:        4.1%{?dist}
+Epoch:          1
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -69,42 +75,6 @@ Pandoc extends standard markdown syntax with footnotes, embedded LaTeX,
 definition lists, tables, and other features. A compatibility mode is provided
 for those who need a drop-in replacement for Markdown.pl.
 
-For pdf output please also install pandoc-pdf.
-
-
-%package -n ghc-%{name}
-Summary:        Haskell %{name} library
-
-%description -n ghc-%{name}
-This package provides the Haskell %{name} shared library.
-
-
-%package -n ghc-%{name}-devel
-Summary:        Haskell %{name} library development files
-Provides:       ghc-%{name}-static = %{version}-%{release}
-Requires:       ghc-compiler = %{ghc_version}
-Requires(post): ghc-compiler = %{ghc_version}
-Requires(postun): ghc-compiler = %{ghc_version}
-Requires:       ghc-%{name}%{?_isa} = %{version}-%{release}
-
-%description -n ghc-%{name}-devel
-This package provides the Haskell %{name} library development files.
-
-
-%package pdf
-Summary:        Metapackage for pandoc pdf support
-Requires:       %{name} = %{version}
-Requires:       texlive-collection-latex
-Requires:       texlive-ec
-Obsoletes:      pandoc-markdown2pdf < %{version}-%{release}
-
-%description pdf
-This package pulls in the TeXLive latex package collection needed by
-pandoc to generate pdf output using pdflatex.
-
-To use --latex-engine=xelatex or lualatex, install texlive-collection-xetex
-or texlive-collection-luatex respectively.
-
 
 %prep
 %setup -q
@@ -127,15 +97,7 @@ rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,cha
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
-%ghc_fix_dynamic_rpath pandoc
-
-
-%post -n ghc-%{name}-devel
-%ghc_pkg_recache
-
-
-%postun -n ghc-%{name}-devel
-%ghc_pkg_recache
+rm -rf %{buildroot}%ghclibdir
 
 
 %files
@@ -147,17 +109,14 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %attr(644,root,root) %{_mandir}/man5/*
 
 
-%files pdf
-
-
-%files -n ghc-%{name} -f ghc-%{name}.files
-%doc COPYING COPYRIGHT
-
-
-%files -n ghc-%{name}-devel -f ghc-%{name}-devel.files
-
-
 %changelog
+* Tue Jul 15 2014 Jens Petersen <petersen@fedoraproject.org> - 1:1.12.3.3-4.1
+- Epoch 1 for copr
+- statically link against Haskell libraries
+- turn off shared and prof libs and do not package static lib
+- turn off haddock
+- no pdf subpackage
+
 * Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.12.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
