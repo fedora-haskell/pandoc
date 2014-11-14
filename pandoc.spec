@@ -7,10 +7,12 @@
 
 %global pkg_name pandoc
 
+# no useful debuginfo for Haskell packages without C sources
+%global debug_package %{nil}
+
 Name:           %{pkg_name}
-Version:        1.12.3.3
-Release:        4.1%{?dist}
-Epoch:          1
+Version:        1.13.1
+Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -21,8 +23,9 @@ BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 # Begin cabal-rpm deps:
 BuildRequires:  alex
-BuildRequires:  chrpath
 BuildRequires:  ghc-HTTP-devel
+#BuildRequires:  ghc-JuicyPixels-devel
+#BuildRequires:  ghc-SHA-devel
 BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-array-devel
 BuildRequires:  ghc-attoparsec-devel
@@ -33,19 +36,26 @@ BuildRequires:  ghc-blaze-markup-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-data-default-devel
+#BuildRequires:  ghc-deepseq-generics-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
 BuildRequires:  ghc-filepath-devel
+#BuildRequires:  ghc-haddock-library-devel
 BuildRequires:  ghc-highlighting-kate-devel
 BuildRequires:  ghc-hslua-devel
+#BuildRequires:  ghc-http-client-devel
+#BuildRequires:  ghc-http-client-tls-devel
+#BuildRequires:  ghc-http-types-devel
 BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-devel
+#BuildRequires:  ghc-network-uri-devel
 BuildRequires:  ghc-old-locale-devel
 BuildRequires:  ghc-old-time-devel
 BuildRequires:  ghc-pandoc-types-devel
 BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-random-devel
+BuildRequires:  ghc-scientific-devel
 BuildRequires:  ghc-syb-devel
 BuildRequires:  ghc-tagsoup-devel
 BuildRequires:  ghc-temporary-devel
@@ -60,6 +70,7 @@ BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
 # End cabal-rpm deps
+#BuildRequires:  cabal-install > 1.18
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -78,20 +89,19 @@ for those who need a drop-in replacement for Markdown.pl.
 
 %prep
 %setup -q
-cabal-tweak-flag http-conduit False
 
 
 %build
-# llvm opt hangs on Pretty with -O2 with ghc-7.6! (#992430)
-# remove for ghc-7.8
-%ifarch armv7hl
-cabal_configure_extra_options=--ghc-option="-O1"
-%endif
-%ghc_lib_build
+[ -d "$HOME/.cabal" ] || cabal update
+%global cabal ~/.cabal/bin/cabal-1.18.0.5
+%cabal sandbox init
+%cabal install --only-dependencies
+cabal_configure_extra_options=--ghc-option=-O1
+%ghc_bin_build
 
 
 %install
-%ghc_lib_install
+%ghc_bin_install
 
 rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
 
