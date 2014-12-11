@@ -28,7 +28,6 @@ BuildRequires:  ghc-HTTP-devel
 #BuildRequires:  ghc-SHA-devel
 BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-array-devel
-BuildRequires:  ghc-attoparsec-devel
 BuildRequires:  ghc-base64-bytestring-devel
 BuildRequires:  ghc-binary-devel
 BuildRequires:  ghc-blaze-html-devel
@@ -70,7 +69,7 @@ BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
 # End cabal-rpm deps
-#BuildRequires:  cabal-install > 1.18
+BuildRequires:  cabal-install > 1.18
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -92,9 +91,16 @@ for those who need a drop-in replacement for Markdown.pl.
 
 
 %build
-[ -d "$HOME/.cabal" ] || cabal update
-%global cabal ~/.cabal/bin/cabal-1.18.0.5
+%global cabal cabal
+[ -d "$HOME/.cabal" ] || %cabal update
 %cabal sandbox init
+# for haddock-library hGetContents
+export LANG=en_US.utf8
+# yaml-0.8.10 fails to build with conduit 1.0
+# https://github.com/snoyberg/yaml/pull/53
+cat > cabal.config << EOF
+constraints: yaml < 0.8.10
+EOF
 %cabal install --only-dependencies
 cabal_configure_extra_options=--ghc-option=-O1
 %ghc_bin_build
@@ -103,15 +109,19 @@ cabal_configure_extra_options=--ghc-option=-O1
 %install
 %ghc_bin_install
 
-rm %{buildroot}%{_datadir}/%{name}-%{version}/{BUGS,COPYRIGHT,INSTALL,README,changelog}
+rm %{buildroot}%{_datadir}/%{name}-%{version}/{COPYRIGHT,README}
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 rm -rf %{buildroot}%ghclibdir
 
+mkdir -p %{buildroot}%{_mandir}/{man1,man5}
+cp -p man/man1/pandoc.1 %{buildroot}%{_mandir}/man1
+cp -p man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
+
 
 %files
-%doc BUGS COPYING COPYRIGHT README* changelog
+%doc BUGS COPYING COPYRIGHT README changelog
 %attr(755,root,root) %{_bindir}/%{name}
 %attr(-,root,root) %{_bindir}/hsmarkdown
 %{_datadir}/%{name}-%{version}
@@ -120,6 +130,13 @@ rm -rf %{buildroot}%ghclibdir
 
 
 %changelog
+* Wed Dec  3 2014 Jens Petersen <petersen@redhat.com> - 1.13.1-1
+- drop epoch
+- update deps
+- use cabal sandbox instead of cabal-dev
+- build with yaml < 0.8.10
+- install manpages by hand
+
 * Tue Jul 15 2014 Jens Petersen <petersen@fedoraproject.org> - 1:1.12.3.3-4.1
 - Epoch 1 for copr
 - statically link against Haskell libraries
