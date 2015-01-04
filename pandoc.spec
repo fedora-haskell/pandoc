@@ -11,7 +11,7 @@
 %global debug_package %{nil}
 
 Name:           %{pkg_name}
-Version:        1.13.1
+Version:        1.13.2
 Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
@@ -74,12 +74,13 @@ BuildRequires:  cabal-install > 1.18
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
 and a command-line tool that uses this library. It can read markdown and
-(subsets of) HTML, reStructuredText, LaTeX, DocBook, MediaWiki markup, Haddock
-markup, OPML, and Textile, and it can write markdown, reStructuredText, HTML,
-LaTeX, ConTeXt, Docbook, OPML, OpenDocument, ODT, Word docx, RTF, MediaWiki,
-Textile, groff man pages, plain text, Emacs Org-Mode, AsciiDoc, EPUB (v2 and
-v3), FictionBook2, and several kinds of HTML/javascript slide shows (S5, Slidy,
-Slideous, DZSlides, reveal.js).
+(subsets of) HTML, reStructuredText, LaTeX, DocBook, MediaWiki markup, TWiki
+markup, Haddock markup, OPML, Emacs Org-Mode, txt2tags and Textile, and it can
+write markdown, reStructuredText, XHTML, HTML 5, LaTeX, ConTeXt, DocBook, OPML,
+OpenDocument, ODT, Word docx, RTF, MediaWiki, DokuWiki, Textile, groff man
+pages, plain text, Emacs Org-Mode, AsciiDoc, Haddock markup, EPUB (v2 and v3),
+FictionBook2, InDesign ICML, and several kinds of HTML/javascript slide shows
+(S5, Slidy, Slideous, DZSlides, reveal.js).
 
 Pandoc extends standard markdown syntax with footnotes, embedded LaTeX,
 definition lists, tables, and other features. A compatibility mode is provided
@@ -88,6 +89,7 @@ for those who need a drop-in replacement for Markdown.pl.
 
 %prep
 %setup -q
+cabal-tweak-flag network-uri False
 
 
 %build
