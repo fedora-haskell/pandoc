@@ -11,7 +11,7 @@
 %global debug_package %{nil}
 
 Name:           %{pkg_name}
-Version:        1.13.2
+Version:        1.14.0.4
 Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
@@ -132,6 +132,9 @@ cp -p man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
 
 
 %changelog
+* Mon Jun  8 2015 Jens Petersen <petersen@redhat.com> - 1.14.0.4-1
+- update to 1.14.0.4
+
 * Wed Dec  3 2014 Jens Petersen <petersen@redhat.com> - 1.13.1-1
 - drop epoch
 - update deps
