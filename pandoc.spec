@@ -1,31 +1,27 @@
-# https://fedoraproject.org/wiki/Packaging:Haskell
+%global pandoc_ver 1.14.0.4
+%global pandoc_citeproc_ver 0.7.2
 
-%global ghc_without_dynamic 1
-%global ghc_without_shared 1
-%global without_prof 1
-%global without_haddock 1
-
-%global pkg_name pandoc
-
-# no useful debuginfo for Haskell packages without C sources
+# nothing to see here
 %global debug_package %{nil}
 
-Name:           %{pkg_name}
-Version:        1.14.0.4
-Release:        1%{?dist}
+Name:           pandoc
+Version:        %{pandoc_ver}
+# reset only when both versioned bumped
+Release:        2%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
 URL:            http://hackage.haskell.org/package/%{name}
-Source0:        http://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0:        http://hackage.haskell.org/package/%{name}/%{version}/%{name}-%{version}.tar.gz
+Source1:        http://hackage.haskell.org/package/%{name}-citeproc/%{pandoc_citeproc_ver}/%{name}-citeproc-%{pandoc_citeproc_ver}.tar.gz
 
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-rpm-macros
+#BuildRequires:  ghc-rpm-macros
 # Begin cabal-rpm deps:
 BuildRequires:  alex
 BuildRequires:  ghc-HTTP-devel
-#BuildRequires:  ghc-JuicyPixels-devel
-#BuildRequires:  ghc-SHA-devel
+BuildRequires:  ghc-JuicyPixels-devel
+BuildRequires:  ghc-SHA-devel
 BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-array-devel
 BuildRequires:  ghc-base64-bytestring-devel
@@ -70,6 +66,7 @@ BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
 # End cabal-rpm deps
 BuildRequires:  cabal-install > 1.18
+BuildRequires:  hsb2hs
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -87,9 +84,20 @@ definition lists, tables, and other features. A compatibility mode is provided
 for those who need a drop-in replacement for Markdown.pl.
 
 
+%package citeproc
+Summary:        Supports using pandoc with citeproc
+Version:        %{pandoc_citeproc_ver}
+Group:          Text/Processing
+License:        BSD and GPLv2+
+
+%description citeproc
+This package contains an executable: pandoc-citeproc, which works as a
+pandoc filter, and also has a mode for converting bibliographic databases
+a YAML format suitable for inclusion in pandoc YAML metadata.
+
+
 %prep
-%setup -q
-cabal-tweak-flag network-uri False
+%setup -q -a1
 
 
 %build
@@ -98,40 +106,43 @@ cabal-tweak-flag network-uri False
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
-# yaml-0.8.10 fails to build with conduit 1.0
-# https://github.com/snoyberg/yaml/pull/53
-cat > cabal.config << EOF
-constraints: yaml < 0.8.10
-EOF
-%cabal install --only-dependencies
-cabal_configure_extra_options=--ghc-option=-O1
-%ghc_bin_build
+%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}
 
 
 %install
-%ghc_bin_install
-
-rm %{buildroot}%{_datadir}/%{name}-%{version}/{COPYRIGHT,README}
+mkdir -p %{buildroot}%{_bindir}
+install -p .cabal-sandbox/bin/%{name} .cabal-sandbox/bin/%{name}-citeproc %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/{man1,man5}
+# man/man1/pandoc.1
+install -p -m 644 .cabal-sandbox/share/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
+#install -p -m 644 man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
-
-rm -rf %{buildroot}%ghclibdir
-
-mkdir -p %{buildroot}%{_mandir}/{man1,man5}
-cp -p man/man1/pandoc.1 %{buildroot}%{_mandir}/man1
-cp -p man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
 
 
 %files
 %doc BUGS COPYING COPYRIGHT README changelog
-%attr(755,root,root) %{_bindir}/%{name}
-%attr(-,root,root) %{_bindir}/hsmarkdown
-%{_datadir}/%{name}-%{version}
-%attr(644,root,root) %{_mandir}/man1/pandoc.1*
-%attr(644,root,root) %{_mandir}/man5/*
+%doc .cabal-sandbox/share/doc/*
+%{_bindir}/%{name}
+%{_bindir}/hsmarkdown
+#%{_datadir}/%{name}-%{version}
+#%{_mandir}/man1/pandoc.1*
+#%{_mandir}/man5/pandoc_markdown.5*
+
+
+%files citeproc
+%doc pandoc-citeproc-%{pandoc_citeproc_ver}/README.md
+%doc .cabal-sandbox/share/doc/*
+%{_bindir}/%{name}-citeproc
+%{_mandir}/man1/pandoc-citeproc.1*
 
 
 %changelog
+* Tue Jun 23 2015 Jens Petersen <petersen@redhat.com> - 1.14.0.4-2
+- embed data files with hsb2hs
+- add pandoc-citeproc subpackage
+
+
 * Mon Jun  8 2015 Jens Petersen <petersen@redhat.com> - 1.14.0.4-1
 - update to 1.14.0.4
 
