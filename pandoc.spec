@@ -11,9 +11,9 @@ Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
-URL:            http://hackage.haskell.org/package/%{name}
-Source0:        http://hackage.haskell.org/package/%{name}/%{version}/%{name}-%{version}.tar.gz
-Source1:        http://hackage.haskell.org/package/%{name}-citeproc/%{pandoc_citeproc_ver}/%{name}-citeproc-%{pandoc_citeproc_ver}.tar.gz
+Url:            https://hackage.haskell.org/package/%{name}
+Source0:        https://hackage.haskell.org/package/%{name}/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{name}-citeproc/%{pandoc_citeproc_ver}/%{name}-citeproc-%{pandoc_citeproc_ver}.tar.gz
 
 BuildRequires:  ghc-Cabal-devel
 #BuildRequires:  ghc-rpm-macros
@@ -126,9 +126,8 @@ export LANG=en_US.utf8
 %install
 mkdir -p %{buildroot}%{_bindir}
 install -p .cabal-sandbox/bin/%{name} .cabal-sandbox/bin/%{name}-citeproc %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_mandir}/{man1,man5}
-# man/man1/pandoc.1
-install -p -m 644 .cabal-sandbox/share/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}%{_mandir}/man1
+install -p -m 644 man/man1/pandoc.1 pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
 #install -p -m 644 man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
@@ -139,6 +138,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %doc .cabal-sandbox/share/doc/*
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
+%{_mandir}/man1/pandoc.1*
 
 
 %files citeproc
