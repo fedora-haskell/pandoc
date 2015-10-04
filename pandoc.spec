@@ -29,7 +29,7 @@ BuildRequires:  ghc-binary-devel
 BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-blaze-markup-devel
 BuildRequires:  ghc-bytestring-devel
-BuildRequires:  ghc-cmark-devel
+#BuildRequires:  ghc-cmark-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-data-default-devel
 #BuildRequires:  ghc-deepseq-generics-devel
@@ -139,9 +139,6 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %doc .cabal-sandbox/share/doc/*
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
-#%{_datadir}/%{name}-%{version}
-#%{_mandir}/man1/pandoc.1*
-#%{_mandir}/man5/pandoc_markdown.5*
 
 
 %files citeproc
