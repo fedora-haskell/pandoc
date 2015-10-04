@@ -1,5 +1,5 @@
-%global pandoc_ver 1.14.0.4
-%global pandoc_citeproc_ver 0.7.2
+%global pandoc_ver 1.15.0.6
+%global pandoc_citeproc_ver 0.7.4
 
 # nothing to see here
 %global debug_package %{nil}
@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -29,11 +29,13 @@ BuildRequires:  ghc-binary-devel
 BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-blaze-markup-devel
 BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-cmark-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-data-default-devel
 #BuildRequires:  ghc-deepseq-generics-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
+#BuildRequires:  ghc-filemanip-devel
 BuildRequires:  ghc-filepath-devel
 #BuildRequires:  ghc-haddock-library-devel
 BuildRequires:  ghc-highlighting-kate-devel
@@ -43,7 +45,9 @@ BuildRequires:  ghc-hslua-devel
 #BuildRequires:  ghc-http-types-devel
 BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-devel
-#BuildRequires:  ghc-network-uri-devel
+%if 0%{?fedora} >= 24
+BuildRequires:  ghc-network-uri-devel
+%endif
 BuildRequires:  ghc-old-locale-devel
 BuildRequires:  ghc-old-time-devel
 BuildRequires:  ghc-pandoc-types-devel
@@ -64,6 +68,16 @@ BuildRequires:  ghc-yaml-devel
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
+%if %{with tests}
+BuildRequires:  ghc-Diff-devel
+BuildRequires:  ghc-HUnit-devel
+BuildRequires:  ghc-QuickCheck-devel
+BuildRequires:  ghc-ansi-terminal-devel
+BuildRequires:  ghc-executable-path-devel
+BuildRequires:  ghc-test-framework-devel
+BuildRequires:  ghc-test-framework-hunit-devel
+BuildRequires:  ghc-test-framework-quickcheck2-devel
+%endif
 # End cabal-rpm deps
 BuildRequires:  cabal-install > 1.18
 BuildRequires:  hsb2hs
@@ -138,10 +152,12 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Sun Oct  4 2015 Jens Petersen <petersen@fedoraproject.org> - 1.15.0.6-1
+- pandoc-1.15.0.6 and pandoc-citeproc-0.7.4
+
 * Tue Jun 23 2015 Jens Petersen <petersen@redhat.com> - 1.14.0.4-2
 - embed data files with hsb2hs
 - add pandoc-citeproc subpackage
-
 
 * Mon Jun  8 2015 Jens Petersen <petersen@redhat.com> - 1.14.0.4-1
 - update to 1.14.0.4
