@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -81,6 +81,8 @@ BuildRequires:  ghc-test-framework-quickcheck2-devel
 # End cabal-rpm deps
 BuildRequires:  cabal-install > 1.18
 BuildRequires:  hsb2hs
+Obsoletes:      pandoc-common < %{version}-%{release}
+Obsoletes:      pandoc-static < %{version}-%{release}
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -149,6 +151,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue Oct  6 2015 Jens Petersen <petersen@fedoraproject.org> - 1.15.0.6-2
+- obsoletes pandoc-common and pandoc-static
+
 * Sun Oct  4 2015 Jens Petersen <petersen@fedoraproject.org> - 1.15.0.6-1
 - pandoc-1.15.0.6 and pandoc-citeproc-0.7.4
 
