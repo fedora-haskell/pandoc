@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -81,8 +81,6 @@ BuildRequires:  ghc-test-framework-quickcheck2-devel
 # End cabal-rpm deps
 BuildRequires:  cabal-install > 1.18
 BuildRequires:  hsb2hs
-Obsoletes:      pandoc-common < %{version}-%{release}
-Obsoletes:      pandoc-static < %{version}-%{release}
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -129,7 +127,8 @@ export LANG=en_US.utf8
 mkdir -p %{buildroot}%{_bindir}
 install -p .cabal-sandbox/bin/%{name} .cabal-sandbox/bin/%{name}-citeproc %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man1
-install -p -m 644 man/pandoc.1 pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
+# man/pandoc.1 conflicts with pandoc-common
+install -p -m 644 pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
 #install -p -m 644 man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
@@ -137,10 +136,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 %files
 %doc BUGS COPYING COPYRIGHT README changelog
-%doc .cabal-sandbox/share/doc/*
+%doc .cabal-sandbox/share/doc/* man/pandoc.1
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
-%{_mandir}/man1/pandoc.1*
+#%%{_mandir}/man1/pandoc.1*
 
 
 %files citeproc
@@ -151,6 +150,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue Oct  6 2015 Jens Petersen <petersen@redhat.com> - 1.15.0.6-3
+- revert the obsoletes
+- move manpage to docdir to avoid conflict with pandoc-common
+
 * Tue Oct  6 2015 Jens Petersen <petersen@fedoraproject.org> - 1.15.0.6-2
 - obsoletes pandoc-common and pandoc-static
 
