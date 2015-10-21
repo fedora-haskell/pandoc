@@ -1,5 +1,5 @@
-%global pandoc_ver 1.15.0.6
-%global pandoc_citeproc_ver 0.7.4
+%global pandoc_ver 1.15.1.1
+%global pandoc_citeproc_ver 0.8.0.1
 
 # nothing to see here
 %global debug_package %{nil}
@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -150,6 +150,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Oct 21 2015 Jens Petersen <petersen@redhat.com> - 1.15.1.1-1
+- update to pandoc-1.15.1.1 and pandoc-citeproc-0.8.0.1
+
 * Tue Oct  6 2015 Jens Petersen <petersen@redhat.com> - 1.15.0.6-3
 - revert the obsoletes
 - move manpage to docdir to avoid conflict with pandoc-common
