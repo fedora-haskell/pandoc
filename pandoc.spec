@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -20,26 +20,36 @@ BuildRequires:  ghc-Cabal-devel
 # Begin cabal-rpm deps:
 BuildRequires:  alex
 BuildRequires:  ghc-HTTP-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-JuicyPixels-devel
 BuildRequires:  ghc-SHA-devel
 BuildRequires:  ghc-aeson-devel
+%endif
 BuildRequires:  ghc-array-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-base64-bytestring-devel
+%endif
 BuildRequires:  ghc-binary-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-blaze-markup-devel
+%endif
 BuildRequires:  ghc-bytestring-devel
 #BuildRequires:  ghc-cmark-devel
 BuildRequires:  ghc-containers-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-data-default-devel
+%endif
 #BuildRequires:  ghc-deepseq-generics-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
 #BuildRequires:  ghc-filemanip-devel
 BuildRequires:  ghc-filepath-devel
 #BuildRequires:  ghc-haddock-library-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-highlighting-kate-devel
 BuildRequires:  ghc-hslua-devel
+%endif
 #BuildRequires:  ghc-http-client-devel
 #BuildRequires:  ghc-http-client-tls-devel
 #BuildRequires:  ghc-http-types-devel
@@ -50,22 +60,32 @@ BuildRequires:  ghc-network-uri-devel
 %endif
 BuildRequires:  ghc-old-locale-devel
 BuildRequires:  ghc-old-time-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-pandoc-types-devel
+%endif
 BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-random-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-scientific-devel
+%endif
 BuildRequires:  ghc-syb-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-tagsoup-devel
 BuildRequires:  ghc-temporary-devel
 BuildRequires:  ghc-texmath-devel
+%endif
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-unordered-containers-devel
+%endif
 BuildRequires:  ghc-vector-devel
+%if 0%{?rhel} > 6
 BuildRequires:  ghc-xml-devel
 BuildRequires:  ghc-yaml-devel
 BuildRequires:  ghc-zip-archive-devel
+%endif
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  happy
 %if %{with tests}
@@ -150,6 +170,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Mon Oct 26 2015 Jens Petersen <petersen@redhat.com> - 1.15.1.1-2
+- add el6 BR conditions
+
 * Wed Oct 21 2015 Jens Petersen <petersen@redhat.com> - 1.15.1.1-1
 - update to pandoc-1.15.1.1 and pandoc-citeproc-0.8.0.1
 
