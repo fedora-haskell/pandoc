@@ -1,5 +1,5 @@
-%global pandoc_ver 1.15.2.1
-%global pandoc_citeproc_ver 0.8.1.3
+%global pandoc_ver 1.16
+%global pandoc_citeproc_ver 0.9
 
 # nothing to see here
 %global debug_package %{nil}
@@ -170,6 +170,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Jan  8 2016 Jens Petersen <petersen@redhat.com> - 1.16-1
+- update to pandoc-1.16 and pandoc-citeproc-0.9
+
 * Wed Nov 18 2015 Jens Petersen <petersen@redhat.com> - 1.15.2.1-1
 - update to pandoc-1.15.2.1 and pandoc-citeproc-0.8.1.3
 
