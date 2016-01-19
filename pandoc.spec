@@ -1,4 +1,4 @@
-%global pandoc_ver 1.16
+%global pandoc_ver 1.16.0.2
 %global pandoc_citeproc_ver 0.9
 
 # nothing to see here
@@ -147,9 +147,8 @@ export LANG=en_US.utf8
 mkdir -p %{buildroot}%{_bindir}
 install -p .cabal-sandbox/bin/%{name} .cabal-sandbox/bin/%{name}-citeproc %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man1
-# man/pandoc.1 conflicts with pandoc-common
-install -p -m 644 pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
-#install -p -m 644 man/man5/pandoc_markdown.5 %{buildroot}%{_mandir}/man5
+install -m 0644 -p -D man/pandoc.1 %{buildroot}%{_mandir}/man1/pandoc-%{pandoc_ver}.1
+install -m 0644 -p pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
@@ -159,7 +158,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %doc .cabal-sandbox/share/doc/*
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
-#{_mandir}/man1/pandoc.1*
+%{_mandir}/man1/pandoc-%{pandoc_ver}.1*
 
 
 %files citeproc
@@ -170,6 +169,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue Jan 19 2016 Jens Petersen <petersen@redhat.com> - 1.16.0.2-1
+- update to pandoc-1.16.0.2
+- ship manpage with versioned filename
+
 * Fri Jan  8 2016 Jens Petersen <petersen@redhat.com> - 1.16-1
 - update to pandoc-1.16 and pandoc-citeproc-0.9
 
