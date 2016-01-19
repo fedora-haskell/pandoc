@@ -156,10 +156,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 %files
 %doc BUGS COPYING COPYRIGHT README changelog
-%doc .cabal-sandbox/share/doc/* man/pandoc.1
+%doc .cabal-sandbox/share/doc/*
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
-#%%{_mandir}/man1/pandoc.1*
+#{_mandir}/man1/pandoc.1*
 
 
 %files citeproc
