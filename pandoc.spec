@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -140,7 +140,8 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
-%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}
+# https://github.com/haskell-crypto/cryptonite/issues/88
+%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} cryptonite-0.15
 
 
 %install
@@ -169,6 +170,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Jun  8 2016 Jens Petersen <petersen@redhat.com> - 1.17.1-2
+- try forcing cryptonite-0.15
+
 * Tue Jun  7 2016 Jens Petersen <petersen@redhat.com> - 1.17.1-1
 - update to pandoc-1.17.1 and pandoc-citeproc-0.10
 
