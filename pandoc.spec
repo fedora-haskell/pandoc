@@ -140,8 +140,7 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
-# https://github.com/haskell-crypto/cryptonite/issues/88
-%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} cryptonite-0.15
+%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}
 
 
 %install
@@ -170,6 +169,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Thu Jun 16 2016 Jens Petersen <petersen@redhat.com>
+- cryptonite-0.17 should fix the i686 build issue
+
 * Wed Jun  8 2016 Jens Petersen <petersen@redhat.com> - 1.17.1-2
 - try forcing cryptonite-0.15
 
