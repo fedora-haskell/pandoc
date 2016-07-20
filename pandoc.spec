@@ -1,5 +1,5 @@
-%global pandoc_ver 1.17.1
-%global pandoc_citeproc_ver 0.10
+%global pandoc_ver 1.17.2
+%global pandoc_citeproc_ver 0.10.1
 
 # nothing to see here
 %global debug_package %{nil}
@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -169,6 +169,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Jul 20 2016 Jens Petersen <petersen@redhat.com> - 1.17.2-1
+- update to pandoc-1.17.2 and pandoc-citeproc-0.10.1
+
 * Thu Jun 16 2016 Jens Petersen <petersen@redhat.com>
 - cryptonite-0.17 should fix the i686 build issue
 
