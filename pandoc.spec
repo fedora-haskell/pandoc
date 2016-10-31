@@ -101,6 +101,7 @@ BuildRequires:  ghc-test-framework-quickcheck2-devel
 # End cabal-rpm deps
 BuildRequires:  cabal-install > 1.18
 BuildRequires:  hsb2hs
+Obsoletes: pandoc-pdf < %{version}-%{release}
 
 %description
 Pandoc is a Haskell library for converting from one markup format to another,
@@ -171,6 +172,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %changelog
 * Mon Oct 31 2016 Jens Petersen <petersen@redhat.com>
 - bump pandoc-citeproc to 0.10.1.1
+- obsolete pandoc-pdf (#5)
 
 * Wed Jul 20 2016 Jens Petersen <petersen@redhat.com> - 1.17.2-1
 - update to pandoc-1.17.2 and pandoc-citeproc-0.10.1
