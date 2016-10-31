@@ -157,7 +157,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %files
-%doc BUGS COPYING.md COPYRIGHT.md README.md changelog
+%doc BUGS COPYING.md COPYRIGHT README.md changelog
 %doc .cabal-sandbox/share/doc/*
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
