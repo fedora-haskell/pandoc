@@ -1,5 +1,5 @@
-%global pandoc_ver 1.17.2
-%global pandoc_citeproc_ver 0.10.1.1
+%global pandoc_ver 1.18
+%global pandoc_citeproc_ver 0.10.2.2
 
 # nothing to see here
 %global debug_package %{nil}
@@ -41,6 +41,7 @@ BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-data-default-devel
 %endif
 #BuildRequires:  ghc-deepseq-generics-devel
+BuildRequires:  ghc-deepseq-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extensible-exceptions-devel
 #BuildRequires:  ghc-filemanip-devel
@@ -77,6 +78,7 @@ BuildRequires:  ghc-texmath-devel
 %endif
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
+BuildRequires:  ghc-unix-devel
 %if 0%{?rhel} > 6
 BuildRequires:  ghc-unordered-containers-devel
 %endif
@@ -170,8 +172,8 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
-* Mon Oct 31 2016 Jens Petersen <petersen@redhat.com>
-- bump pandoc-citeproc to 0.10.1.1
+* Mon Oct 31 2016 Jens Petersen <petersen@redhat.com> - 1.18-1
+- pandoc 1.18 and pandoc-citeproc 0.10.2.2
 - obsolete pandoc-pdf (#5)
 
 * Wed Jul 20 2016 Jens Petersen <petersen@redhat.com> - 1.17.2-1
