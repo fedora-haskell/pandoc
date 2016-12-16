@@ -1,5 +1,5 @@
-%global pandoc_ver 1.18
-%global pandoc_citeproc_ver 0.10.2.2
+%global pandoc_ver 1.19
+%global pandoc_citeproc_ver 0.10.3
 
 # nothing to see here
 %global debug_package %{nil}
@@ -172,6 +172,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Dec  2 2016 Jens Petersen <petersen@redhat.com> - 1.19-1
+- pandoc 1.19 and pandoc-citeproc 0.10.3
+
 * Mon Oct 31 2016 Jens Petersen <petersen@redhat.com> - 1.18-1
 - pandoc 1.18 and pandoc-citeproc 0.10.2.2
 - obsolete pandoc-pdf (#5)
