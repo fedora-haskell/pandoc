@@ -7,7 +7,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -143,8 +143,7 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
-# https://github.com/snoyberg/xml/issues/95
-%cabal install -f "embed_data_files" blaze-markup-0.7.1.1 pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} 
+%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} 
 
 
 %install
@@ -173,6 +172,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Fri Feb  3 2017 Jens Petersen <petersen@redhat.com> - 1.19.2.1-2
+- allow latest blaze-html (snoyberg/xml#95)
+
 * Wed Feb  1 2017 Jens Petersen <petersen@redhat.com> - 1.19.2.1-1
 - update to pandoc-1.19.2.1 and pandoc-citeproc-0.10.4
 - build with blaze-markup-0.7.1.1
