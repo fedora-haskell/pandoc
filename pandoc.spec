@@ -1,5 +1,5 @@
-%global pandoc_ver 1.19.1
-%global pandoc_citeproc_ver 0.10.3
+%global pandoc_ver 1.19.2.1
+%global pandoc_citeproc_ver 0.10.4
 
 # nothing to see here
 %global debug_package %{nil}
@@ -143,7 +143,8 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
-%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}
+# https://github.com/snoyberg/xml/issues/95
+%cabal install -f "embed_data_files" blaze-markup-0.7.1.1 pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} 
 
 
 %install
@@ -172,6 +173,10 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Wed Feb  1 2017 Jens Petersen <petersen@redhat.com> - 1.19.2.1-1
+- update to pandoc-1.19.2.1 and pandoc-citeproc-0.10.4
+- build with blaze-markup-0.7.1.1
+
 * Fri Dec 16 2016 Jens Petersen <petersen@redhat.com> - 1.19.1-1
 - 1.19.1 release
 - http://pandoc.org/releases.html#pandoc-1.19.1-10-dec-2016
