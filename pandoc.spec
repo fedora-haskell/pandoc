@@ -150,7 +150,7 @@ export LANG=en_US.utf8
 mkdir -p %{buildroot}%{_bindir}
 install -p .cabal-sandbox/bin/%{name} .cabal-sandbox/bin/%{name}-citeproc %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man1
-install -m 0644 -p -D man/pandoc.1 %{buildroot}%{_mandir}/man1/pandoc-%{pandoc_ver}.1
+install -m 0644 -p -D man/pandoc.1 %{buildroot}%{_mandir}/man1/pandoc.1
 install -m 0644 -p pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
 
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
@@ -161,7 +161,7 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 %doc .cabal-sandbox/share/doc/*
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
-%{_mandir}/man1/pandoc-%{pandoc_ver}.1*
+%{_mandir}/man1/pandoc.1*
 
 
 %files citeproc
