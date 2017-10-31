@@ -2,7 +2,7 @@
 # https://fedoraproject.org/wiki/Packaging:Haskell
 
 %global pandoc_ver 1.19.2.1
-%global pandoc_citeproc_ver 0.10.4.1
+%global pandoc_citeproc_ver 0.10.5.1
 
 # nothing to see here
 %global debug_package %{nil}
@@ -10,7 +10,7 @@
 Name:           pandoc
 Version:        %{pandoc_ver}
 # reset only when both versioned bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPLv2+
@@ -51,7 +51,9 @@ BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-devel
 BuildRequires:  ghc-network-uri-devel
 BuildRequires:  ghc-old-time-devel
+%if 0%{?fedora} >= 26
 BuildRequires:  ghc-pandoc-types-devel
+%endif
 BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-random-devel
@@ -60,7 +62,9 @@ BuildRequires:  ghc-scientific-devel
 BuildRequires:  ghc-syb-devel
 BuildRequires:  ghc-tagsoup-devel
 BuildRequires:  ghc-temporary-devel
+%if 0%{?fedora} >= 26
 BuildRequires:  ghc-texmath-devel
+%endif
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-unix-devel
@@ -82,10 +86,12 @@ BuildRequires:  ghc-test-framework-quickcheck2-devel
 %endif
 # End cabal-rpm deps
 BuildRequires:  alex
+# for pretty-show
 BuildRequires:  happy
 %else
 BuildRequires:  ghc-libraries
 %endif
+BuildRequires:  zlib-devel
 BuildRequires:  cabal-install > 1.18
 BuildRequires:  hsb2hs
 Obsoletes: pandoc-pdf < %{version}-%{release}
@@ -131,7 +137,12 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
-%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} 
+%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} \
+%if 0%{?fedora} < 25
+  --force-reinstalls
+%else
+%{nil}
+%endif
 
 
 %install
@@ -160,6 +171,9 @@ ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %changelog
+* Tue Oct 31 2017 Jens Petersen <petersen@redhat.com> - 1.19.2.1-4
+- update to pandoc-citeproc-0.10.5.1
+
 * Thu Mar 16 2017 Jens Petersen <petersen@redhat.com> - 1.19.2.1-3
 - update pandoc-citeproc to 0.10.4.1
 - refresh spec updating deps
