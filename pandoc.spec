@@ -144,6 +144,9 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
+%if 0%{?rhel}
+%cabal install happy
+%endif
 %cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} \
 %if 0%{?fedora} < 25
   --force-reinstalls
