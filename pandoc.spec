@@ -27,8 +27,10 @@ BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-HTTP-devel
 BuildRequires:  ghc-JuicyPixels-devel
 BuildRequires:  ghc-SHA-devel
+%if 0%{?fedora} >= 25
 BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-aeson-pretty-devel
+%endif
 BuildRequires:  ghc-base64-bytestring-devel
 BuildRequires:  ghc-binary-devel
 BuildRequires:  ghc-blaze-html-devel
