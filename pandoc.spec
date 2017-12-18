@@ -27,7 +27,8 @@ BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-HTTP-devel
 BuildRequires:  ghc-JuicyPixels-devel
 BuildRequires:  ghc-SHA-devel
-%if 0%{?fedora} >= 25
+# f25 aeson too old
+%if 0%{?fedora} >= 26
 BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-aeson-pretty-devel
 %endif
@@ -80,7 +81,10 @@ BuildRequires:  ghc-unix-devel
 BuildRequires:  ghc-unordered-containers-devel
 BuildRequires:  ghc-vector-devel
 BuildRequires:  ghc-xml-devel
+# f25 aeson too old
+%if 0%{?fedora} >= 26
 BuildRequires:  ghc-yaml-devel
+%endif
 BuildRequires:  ghc-zip-archive-devel
 BuildRequires:  ghc-zlib-devel
 %if %{with tests}
