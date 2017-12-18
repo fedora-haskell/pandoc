@@ -40,7 +40,9 @@ BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-case-insensitive-devel
 #BuildRequires:  ghc-cmark-gfm-devel
 BuildRequires:  ghc-containers-devel
+%if 0%{?fedora} >= 26
 BuildRequires:  ghc-data-default-devel
+%endif
 BuildRequires:  ghc-deepseq-devel
 BuildRequires:  ghc-directory-devel
 %if 0%{?fedora} >= 26
