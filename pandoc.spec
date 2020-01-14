@@ -118,6 +118,8 @@ BuildRequires:  cabal-install > 1.18
 # for missing dep: text-conversions:
 BuildRequires:  ghc-base16-bytestring-devel
 #BuildRequires:  ghc-errors-devel
+# clones pandoc-citeproc via cabal.project
+BuildRequires:  git-core
 BuildRequires:  hsb2hs
 Obsoletes: pandoc-pdf < %{version}-%{release}
 
@@ -157,7 +159,7 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 
 
 %prep
-%setup -q -a1
+%setup -q %{?with_citeproc:-a1}
 
 
 %build
@@ -198,12 +200,12 @@ for pkg in pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}; do
   done
 done
 mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/man1
 %if 0%{?fedora}
 install -p %{cabal_store}/pandoc-%{pandoc_ver}-*/bin/%{name} %{?with_citeproc:%{cabal_store}/pandoc-citeproc-%{pandoc_citeproc_ver}-*/bin/%{name}-citeproc} %{buildroot}%{_bindir}
 %else
 install -p .cabal-sandbox/bin/%{name} %{?with_citeproc:.cabal-sandbox/bin/%{name}-citeproc} %{buildroot}%{_bindir}
 %endif
-mkdir -p %{buildroot}%{_mandir}/man1
 install -m 0644 -p -D man/pandoc.1 %{buildroot}%{_mandir}/man1/pandoc.1
 %if %{with citeproc}
 install -m 0644 -p pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
