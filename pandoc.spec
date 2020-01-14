@@ -6,13 +6,17 @@
 
 %global ghc_without_dynamic 1
 %global ghc_without_shared 1
+
 # F31+
 %undefine with_ghc_prof
 %undefine with_haddock
 # -F30
 %global without_prof 1
 %global without_haddock 1
-%global debug_package %{nil}
+
+%undefine _enable_debug_packages
+
+%bcond_without citeproc
 
 Name:           pandoc
 Version:        %{pandoc_ver}
@@ -27,7 +31,7 @@ Source1:        https://hackage.haskell.org/package/%{name}-citeproc-%{pandoc_ci
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
-#BuildRequires:  ghc-rpm-macros
+BuildRequires:  ghc-rpm-macros
 %if 0%{?fedora} >= 28
 BuildRequires:  ghc-Glob-devel
 BuildRequires:  ghc-HTTP-devel
@@ -130,7 +134,7 @@ format and produce a native representation of the document, and a set of
 writers, which convert this native representation into a target format.
 Thus, adding an input or output format requires only adding a reader or writer.
 
-
+%if %{with citeproc}
 %package citeproc
 Summary:        Supports using pandoc with citeproc
 Version:        %{pandoc_citeproc_ver}
@@ -141,6 +145,7 @@ License:        BSD and GPLv2+
 This package contains an executable: pandoc-citeproc, which works as a
 pandoc filter, and also has a mode for converting bibliographic databases
 a YAML format suitable for inclusion in pandoc YAML metadata.
+%endif
 
 
 %prep
@@ -149,57 +154,81 @@ a YAML format suitable for inclusion in pandoc YAML metadata.
 %build
 # Begin cabal-rpm build:
 %global cabal cabal
-%cabal update
 %if 0%{?fedora}
+%cabal new-update
 %global cabal_store $HOME/.cabal/store/ghc-%{ghc_version}
-# force reinstall - otherwise cabal just keeps cache
-rm -r $(dirname %{cabal_store}/pandoc-%{pandoc_ver}-*/bin) $(dirname %{cabal_store}/pandoc-citeproc-%{pandoc_citeproc_ver}-*/bin)
-cabal new-install --disable-shared --symlink-bindir=$PWD/bin  --enable-executable-stripping -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}
+if [ -d "%{cabal_store}" ]; then
+# force reinstall - prevent cabal from keeping any old cached build
+# (removing bin/ seems insufficient)
+for pkg in pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}; do
+  for d in  %{cabal_store}/$pkg-*; do
+    if [ -d $d/bin ]; then rm -r $d; fi
+  done
+done
+else
+# workaround for cabal-install-2.4.0: https://github.com/haskell/cabal/issues/5516
+mkdir -p %{cabal_store}/package.db
+fi
+cabal new-install --disable-shared --symlink-bindir=$PWD/bin  --enable-executable-stripping -f "embed_data_files" pandoc-%{pandoc_ver} %{?with_citeproc:pandoc-citeproc-%{pandoc_citeproc_ver}}
 %else
+%cabal update
 %cabal sandbox init
 # for haddock-library hGetContents
 export LANG=en_US.utf8
 %cabal install happy
-%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver} \
+%cabal install -f "embed_data_files" pandoc-%{pandoc_ver} %{?with_citeproc:pandoc-citeproc-%{pandoc_citeproc_ver}} \
 %if 0%{?fedora} < 29
   --force-reinstalls \
 %endif
 %endif
 
 %install
+for pkg in pandoc-%{pandoc_ver} pandoc-citeproc-%{pandoc_citeproc_ver}; do
+  for f in  %{cabal_store}/$pkg-*/bin/*; do
+    [ -x $f ] && strip -s $f
+  done
+done
 mkdir -p %{buildroot}%{_bindir}
 %if 0%{?fedora}
-install -p %{cabal_store}/pandoc-%{pandoc_ver}-*/bin/%{name} %{cabal_store}/pandoc-citeproc-%{pandoc_citeproc_ver}-*/bin/%{name}-citeproc %{buildroot}%{_bindir}
+install -p %{cabal_store}/pandoc-%{pandoc_ver}-*/bin/%{name} %{?with_citeproc:%{cabal_store}/pandoc-citeproc-%{pandoc_citeproc_ver}-*/bin/%{name}-citeproc} %{buildroot}%{_bindir}
 %else
-install -p .cabal-sandbox/bin/%{name} .cabal-sandbox/bin/%{name}-citeproc %{buildroot}%{_bindir}
+install -p .cabal-sandbox/bin/%{name} %{?with_citeproc:.cabal-sandbox/bin/%{name}-citeproc} %{buildroot}%{_bindir}
 %endif
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m 0644 -p -D man/pandoc.1 %{buildroot}%{_mandir}/man1/pandoc.1
+%if %{with citeproc}
 install -m 0644 -p pandoc-citeproc-%{pandoc_citeproc_ver}/man/man1/pandoc-citeproc.1 %{buildroot}%{_mandir}/man1
-
+%endif
 ln -s pandoc %{buildroot}%{_bindir}/hsmarkdown
 
 
 %files
+%if 0%{?fedora}
+%license COPYING.md COPYRIGHT
+%else
 %doc COPYING.md COPYRIGHT
+%endif
 %doc AUTHORS.md BUGS CONTRIBUTING.md README.md changelog
 %doc MANUAL.txt
 %{_bindir}/%{name}
 %{_bindir}/hsmarkdown
 %{_mandir}/man1/pandoc.1*
 
-
+%if %{with citeproc}
 %files citeproc
 %doc pandoc-citeproc-%{pandoc_citeproc_ver}/LICENSE
 %doc pandoc-citeproc-%{pandoc_citeproc_ver}/README.md
 %{_bindir}/%{name}-citeproc
 %{_mandir}/man1/pandoc-citeproc.1*
+%endif
 
 
 %changelog
 * Mon Jan 13 2020 Jens Petersen <petersen@redhat.com> - 2.7.3-2
 - update to cabal-rpm-1.0.4
-- use cabal new-install
+- use cabal v2 instead of sandbox
+- strip binaries
+- add bcond for pandoc-citeproc
 
 * Mon Jul 22 2019 Jens Petersen <petersen@redhat.com> - 2.7.3-1
 - pandoc-2.7.3 and pandoc-citeproc-0.16.2
